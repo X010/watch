@@ -1,6 +1,8 @@
-package com.dssmp.watch.model;
+package com.dssmp.watch.service;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.dssmp.watch.model.User;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,58 +21,42 @@ import com.alibaba.fastjson.annotation.JSONField;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class User {
+public interface UserService {
 
     /**
-     * ID值
+     * 保存用户
+     *
+     * @param user
      */
-    private long id;
+    public void saveUser(User user);
 
     /**
-     * 用户名
+     * 根据用户名和密码
+     *
+     * @param username
+     * @param password
+     * @return
      */
-    private String username;
+    public User getUserByUsernameAndPassword(String username, String password);
+
 
     /**
-     * 密码
+     * 根据ID获取用户
+     *
+     * @param id
+     * @return
      */
-    @JSONField(deserialize = false)
-    private String password;
+    public User getUserById(long id);
 
     /**
-     * 权限组集合
+     * 根据ID删除用户
+     * @param id
      */
-    private String rgids;
+    public void deleteUserById(long id);
 
-    public String getRgids() {
-        return rgids;
-    }
-
-    public void setRgids(String rgids) {
-        this.rgids = rgids;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    /**
+     * 获取所有用户
+     * @return
+     */
+    public List<User> getAllUser();
 }

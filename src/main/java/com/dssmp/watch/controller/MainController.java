@@ -1,5 +1,9 @@
 package com.dssmp.watch.controller;
 
+import com.dssmp.watch.model.User;
+import com.dssmp.watch.service.UserService;
+import com.dssmp.watch.until.CONST;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +31,9 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class MainController {
 
+    @Autowired
+    private UserService userService;
+
 
     /**
      * 登陆
@@ -38,8 +45,22 @@ public class MainController {
     @RequestMapping(value = "login.action")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
 
+        }
         model.setViewName("login");
         return model;
+    }
+
+
+    /**
+     * 读取当前用户
+     *
+     * @param request
+     * @return
+     */
+    private User getCurrentUser(HttpServletRequest request) {
+        Object obj = request.getSession().getAttribute(CONST.LOGIN_FLAG);
+        return (User) obj;
     }
 }
