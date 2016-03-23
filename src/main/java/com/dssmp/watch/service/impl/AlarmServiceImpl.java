@@ -1,6 +1,8 @@
 package com.dssmp.watch.service.impl;
 
+import com.dssmp.watch.dao.AlarmDao;
 import com.dssmp.watch.service.AlarmService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +24,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AlarmServiceImpl implements AlarmService {
+
+    @Autowired
+    private AlarmDao alarmDao;
 
 
 }

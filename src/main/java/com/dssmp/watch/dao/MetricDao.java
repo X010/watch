@@ -1,5 +1,13 @@
 package com.dssmp.watch.dao;
 
+import com.dssmp.watch.model.Metric;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +26,31 @@ package com.dssmp.watch.dao;
  * limitations under the License.
  */
 public interface MetricDao {
+
+    /**
+     * 添加Metric对象
+     *
+     * @param metric
+     */
+    @Insert("insert into watch_metric(metricname)values(#{metricname})")
+    public void insertMetric(Metric metric);
+
+    /**
+     * 删除指标
+     *
+     * @param id
+     */
+    @Delete("delete from watch_metric where id=#{id}")
+    public void deleteMetric(@Param("id") long id);
+
+
+    /**
+     * 分页读取指标
+     *
+     * @param start
+     * @param limit
+     * @return
+     */
+    @Select("select * from watch_metric limit #{start},#{limit}")
+    public List<Metric> findMetricByPage(@Param("start") int start, @Param("limit") int limit);
 }

@@ -1,5 +1,10 @@
 package com.dssmp.watch.dao;
 
+import com.dssmp.watch.model.NameSpace;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,4 +24,45 @@ package com.dssmp.watch.dao;
  */
 public interface NameSpaceDao {
 
+    /**
+     * 添加命名空间
+     *
+     * @param nameSpace
+     */
+    @Insert("insert into watch_namespace(createtime,name)values(#{createtime},#{name})")
+    public void insertNameSpace(NameSpace nameSpace);
+
+    /**
+     * 更新命名空间
+     *
+     * @param nameSpace
+     */
+    @Update("update watch_namespace set createtime=#{createtime},name=#{name} where id=#{id}")
+    public void updateNameSpace(NameSpace nameSpace);
+
+    /**
+     * 删除命名空间
+     *
+     * @param id
+     */
+    @Delete("delete from watch_namespace where id=#{id}")
+    public void deleteNameSpace(@Param("id") long id);
+
+
+    /**
+     * 根据ID获取命名空间
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from watch_namespace where id=#{id}")
+    public NameSpace findNameSpaceById(@Param("id") long id);
+
+    /**
+     * 获取所有命名空间
+     *
+     * @return
+     */
+    @Select("select * from watch_namespace")
+    public List<NameSpace> findAllNameSpace();
 }

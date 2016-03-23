@@ -1,5 +1,9 @@
 package com.dssmp.watch.service;
 
+import com.dssmp.watch.model.Template;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +22,36 @@ package com.dssmp.watch.service;
  * limitations under the License.
  */
 public interface TemplateService {
+
+    /**
+     * 保存Template
+     *
+     * @param template
+     */
+    public void saveTemplate(Template template);
+
+
+    /**
+     * 根据ID获取模板
+     *
+     * @param id
+     * @return
+     */
+    public Template getTemplateById(long id);
+
+
+    /**
+     * 获取所有的模板
+     *
+     * @return
+     */
+    public List<Template> getAllTemplate();
+
+
+    /**
+     * 根据ID删除模板对象
+     *
+     * @param id
+     */
+    public void deleteTemplate(long id);
 }

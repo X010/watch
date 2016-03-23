@@ -1,5 +1,10 @@
 package com.dssmp.watch.dao;
 
+import com.dssmp.watch.model.Alarm;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +23,50 @@ package com.dssmp.watch.dao;
  * limitations under the License.
  */
 public interface AlarmDao {
+
+    /**
+     * 添加报警规则
+     *
+     * @param alarm
+     */
+    @Insert("insert into watch_alarm(mid,nid,threshold,tid,complare)values(#{mid},#{nid},#{threshold},#{tid},#{complare})")
+    public void insertAlarm(Alarm alarm);
+
+
+    /**
+     * 更新报警规则
+     *
+     * @param alarm
+     */
+    @Update("update watch_alarm set threshold=#{threshold},tid=#{tid},complare=#{complare} where id=#{id}")
+    public void updateAlarm(Alarm alarm);
+
+
+    /**
+     * 删除报警规则
+     *
+     * @param id
+     */
+    @Delete("delete from watch_alarm where id=#{id}")
+    public void deleteAlarm(@Param("id") long id);
+
+    /**
+     * 根据ID获取报警规则
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from watch_alarm where id=#{id}")
+    public Alarm findAlarmById(@Param("id") long id);
+
+
+    /**
+     * 分页获取报警规则
+     *
+     * @param start
+     * @param limit
+     * @return
+     */
+    @Select("select * from watch_alarm limit #{start},#{limit}")
+    public List<Alarm> findAlarmByPage(@Param("start") int start, @Param("limit") int limit);
 }

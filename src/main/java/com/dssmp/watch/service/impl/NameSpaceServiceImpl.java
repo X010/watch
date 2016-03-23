@@ -1,6 +1,8 @@
 package com.dssmp.watch.service.impl;
 
+import com.dssmp.watch.dao.NameSpaceDao;
 import com.dssmp.watch.service.NameSpaceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,4 +24,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class NameSpaceServiceImpl implements NameSpaceService {
+
+    @Autowired
+    private NameSpaceDao nameSpaceDao;
 }

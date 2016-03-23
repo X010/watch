@@ -1,5 +1,8 @@
 package com.dssmp.watch.dao;
 
+import com.dssmp.watch.model.MetricRecord;
+import org.apache.ibatis.annotations.Insert;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +21,13 @@ package com.dssmp.watch.dao;
  * limitations under the License.
  */
 public interface MetricRecordDao {
+
+    /**
+     * 添加记录
+     *
+     * @param metricRecord
+     */
+    @Insert("insert into watch_metricrecord(nid,namespace,mid,metricname,starttime,endtime,mvalue)" +
+            "values(#{nid},#{namespace},#{mid},#{metricname},#{starttime},#{endtime},#{mvalue})")
+    public void insertMetricRecord(MetricRecord metricRecord);
 }

@@ -1,7 +1,13 @@
 package com.dssmp.watch.service.impl;
 
+import com.dssmp.watch.dao.TemplateDao;
+import com.dssmp.watch.model.Template;
 import com.dssmp.watch.service.TemplateService;
+import com.google.common.base.Preconditions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,5 +29,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class TemplateServiceImpl implements TemplateService {
 
+    @Autowired
+    private TemplateDao templateDao;
 
+
+    @Override
+    public void saveTemplate(Template template) {
+        Preconditions.checkNotNull(template);
+
+    }
+
+    @Override
+    public Template getTemplateById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return null;
+    }
+
+    @Override
+    public List<Template> getAllTemplate() {
+        return null;
+    }
+
+    @Override
+    public void deleteTemplate(long id) {
+        Preconditions.checkArgument(id > 0);
+
+    }
 }
