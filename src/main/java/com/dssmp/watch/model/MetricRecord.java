@@ -41,9 +41,9 @@ public class MetricRecord {
     private long mid;
 
     /**
-     * 指标ID
+     * 指标名称
      */
-    private String meticname;
+    private String metricname;
 
     /**
      * 开始
@@ -58,7 +58,7 @@ public class MetricRecord {
     /**
      * 值
      */
-    private double value;
+    private double mvalue;
 
     public long getId() {
         return id;
@@ -92,12 +92,12 @@ public class MetricRecord {
         this.mid = mid;
     }
 
-    public String getMeticname() {
-        return meticname;
+    public String getMetricname() {
+        return metricname;
     }
 
-    public void setMeticname(String meticname) {
-        this.meticname = meticname;
+    public void setMetricname(String metricname) {
+        this.metricname = metricname;
     }
 
     public Date getStarttime() {
@@ -116,11 +116,11 @@ public class MetricRecord {
         this.endtime = endtime;
     }
 
-    public double getValue() {
-        return value;
+    public double getMvalue() {
+        return mvalue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setMvalue(double mvalue) {
+        this.mvalue = mvalue;
     }
 }

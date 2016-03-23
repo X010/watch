@@ -27,7 +27,7 @@ public class Metric {
     /**
      * 名称
      */
-    private String meticname;
+    private String metricname;
 
 
     public long getId() {
@@ -38,11 +38,11 @@ public class Metric {
         this.id = id;
     }
 
-    public String getMeticname() {
-        return meticname;
+    public String getMetricname() {
+        return metricname;
     }
 
-    public void setMeticname(String meticname) {
-        this.meticname = meticname;
+    public void setMetricname(String metricname) {
+        this.metricname = metricname;
     }
 }
