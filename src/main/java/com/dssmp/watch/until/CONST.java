@@ -1,11 +1,4 @@
-package com.dssmp.watch.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package com.dssmp.watch.until;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,22 +17,30 @@ import javax.servlet.http.HttpServletResponse;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Controller
-public class MainController {
-
+public class CONST {
+    /**
+     * GET方式
+     */
+    public static String HTTP_METHOD_GET = "GET";
 
     /**
-     * 登陆
-     *
-     * @param request
-     * @param response
-     * @return
+     * POST
      */
-    @RequestMapping(value = "login.action")
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView model = new ModelAndView();
+    public static String HTTP_METHOD_POST = "POST";
 
-        model.setViewName("login");
-        return model;
-    }
+    /**
+     * 登陆标识
+     */
+    public static String LOGIN_FLAG = "LOGIN_FLAG";
+
+    /**
+     * 组件占位符
+     */
+    public static String COMPENT_PH = "#{COMPENT_PH}";
+
+    /**
+     * 正则表达式
+     */
+    public static String COMPENT_PH_PATTERN = "#\\{.*?\\}";
+
 }

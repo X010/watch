@@ -1,11 +1,4 @@
-package com.dssmp.watch.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package com.dssmp.watch.model;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,22 +17,5 @@ import javax.servlet.http.HttpServletResponse;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Controller
-public class MainController {
-
-
-    /**
-     * 登陆
-     *
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "login.action")
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView model = new ModelAndView();
-
-        model.setViewName("login");
-        return model;
-    }
+public class User {
 }
