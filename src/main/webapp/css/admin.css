@@ -1,0 +1,232 @@
+html, body {
+    height: 100%;
+}
+
+.sidebar-menu .treeview-menu > li > a {
+    padding: 10px 5px 10px 20px;
+}
+
+/*主tabs*/
+.maintabs {
+    height: 40px;
+}
+
+.tabs-container {
+    overflow: hidden;
+    background: #fff;
+}
+
+.tabs-header {
+    background: #D6D4F1;
+    border-bottom: 0px;
+    position: relative;
+    overflow: hidden;
+    padding: 0px;
+    padding-top: 2px;
+    overflow: hidden;
+}
+
+.tabs-header-noborder {
+    border: 0px;
+}
+
+.tabs-header-plain {
+    border: 0px;
+    background: transparent;
+}
+
+.tabs-scroller-left {
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    left: 0px;
+    top: -1px;
+    width: 18px;
+    height: 30px !important;
+    height: 30px;
+    font-size: 20px;
+    display: none;
+    cursor: pointer;
+    color: #FFFFFF;
+    background: #A29FCD;
+    line-height: 28px;
+    text-align: center;
+}
+
+.tabs-scroller-left:after {
+    content: "\f104";
+}
+
+.tabs-scroller-right {
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    right: 0;
+    top: -1px;
+    width: 18px;
+    height: 30px !important;
+    height: 30px;
+    font-size: 20px;
+    display: none;
+    cursor: pointer;
+    color: #FFFFFF;
+    background: #A29FCD;
+    line-height: 28px;
+    text-align: center;
+}
+
+.tabs-scroller-right:after {
+    content: "\f105";
+}
+
+.tabs-tool {
+    position: absolute;
+    top: -1px;
+    border: 1px solid #8DB2E3;
+    padding: 1px;
+    background: #E0ECFF;
+    overflow: hidden;
+}
+
+.tabs-header-plain .tabs-scroller-left {
+    top: 2px;
+    height: 25px !important;
+    height: 27px;
+}
+
+.tabs-header-plain .tabs-scroller-right {
+    font: normal normal normal 14px/1 FontAwesome;
+    top: 2px;
+    height: 25px !important;
+    height: 27px;
+}
+
+.tabs-header-plain .tabs-tool {
+    top: 2px;
+    padding-top: 0;
+}
+
+.tabs-scroller-over {
+    background-color: #ACA9DB;
+}
+
+.tabs-wrap {
+    position: relative;
+    left: 0px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.tabs-scrolling {
+    margin-left: 18px;
+    margin-right: 18px;
+}
+
+.tabs {
+    list-style-type: none;
+    height: 26px;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 4px;
+    font-size: 12px;
+    width: 5000px;
+    border-bottom: 1px solid #B4B2CF;
+}
+
+.tabs li {
+    float: left;
+    display: inline-block;
+    margin1: 0px 1px;
+    margin-right: 4px;
+    margin-bottom: -1px;
+    padding: 0;
+    position: relative;
+    border: 1px solid #B4B2CF;
+}
+
+.tabs li a.tabs-inner {
+    display: inline-block;
+    text-decoration: none;
+    color: #605ca8;
+    margin: 0px;
+    padding: 0px 10px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.tabs li a.tabs-inner:hover {
+
+}
+
+.tabs li.tabs-selected {
+    border: 1px solid #B4B2CF;
+    border-bottom: 1px solid #fff;
+}
+
+.tabs li.tabs-selected a {
+    color: #605ca8;
+    font-weight: bold;
+    background: #ecf0f5;
+    outline: none;
+}
+
+.tabs li.tabs-selected a:hover {
+    cursor: default;
+    pointer: default;
+}
+
+.tabs-with-icon {
+    padding-left: 18px;
+}
+
+.tabs-icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 10px;
+    top: 5px;
+}
+
+.tabs-closable {
+    padding-right: 8px;
+}
+
+.tabs li a.tabs-close {
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    font-size: 10px;
+    display: block;
+    padding: 0px;
+    width: 11px;
+    height: 11px;
+    top: 7px;
+    right: 5px;
+    color: #605ca8;
+}
+
+.tabs li a.tabs-close:after {
+    content: "\f00d";
+}
+
+.tabs li a:hover.tabs-close {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.tabs-panels {
+    margin: 0px;
+    padding: 0px;
+    padding-top: 26px;
+    overflow: hidden;
+    background: #ecf0f5;
+}
+
+.tabs-panels-noborder {
+    border: 0px;
+}
+
+.panel-body {
+    padding: 0;
+}

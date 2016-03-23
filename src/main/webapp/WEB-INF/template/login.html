@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Beauty报表配置系统</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/login_2.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        (function ($) {
+            $.extend({
+                urlGet: function () {
+                    var aQuery = window.location.href.split("?");  //取得Get参数
+                    var aGET = new Array();
+                    if (aQuery.length > 1) {
+                        var aBuf = aQuery[1].split("&");
+                        for (var i = 0, iLoop = aBuf.length; i < iLoop; i++) {
+                            var aTmp = aBuf[i].split("=");  //分离key与Value
+                            aGET[aTmp[0]] = aTmp[1];
+                        }
+                    }
+                    return aGET;
+                }
+            })
+        })(jQuery);
+
+        $(function () {
+            //初始化
+            initTable();
+
+
+            <#if message ??>
+            alert("${message}");
+            </#if>
+        });
+
+        //个人习惯方法化书写
+        function initTable() {
+            $("#dd").dialog({
+                closable: false, //右上角的关闭按钮，因为dialog框架关联的是window框架，window框架关联的是panel框架，所以该API是在panel框架中找到的
+                title: "99云仓-平台管理后台", //dialog左上角的名称
+                modal: true, //模式化
+                width: 400,
+                height: 220,
+                buttons: [//dialog右下角的按钮，以Json数组形式添加
+                    {
+                        text: "登录", //按钮名称
+                        iconCls: "icon-save", //按钮左侧显示的图片
+                        handler: function () {//按钮点击之后出发的方法
+                            var username = $("#username").val();
+                            var password = $("#password").val();
+                            var code = $("#code").val();
+
+                            if (username != null && username != 'undefined' && username.length > 3 && username.length <= 18) {
+
+                            } else {
+                                alert("用户名不正确!");
+                                return false;
+                            }
+
+                            if (password != null && password != 'undefined' && password.length > 3 && password.length <= 18) {
+
+                            } else {
+                                alert("密码不正确!");
+                                return false;
+                            }
+
+                            if (code != null && code != 'undefined' && code.length == 4 && code.length == 4) {
+
+                            } else {
+                                alert("验证码不正确!");
+                                return false;
+                            }
+
+                            $("#loginForm").submit();
+                        }
+                    }
+                ]
+            });
+        }
+
+        var changeSendCodeFunction = null;
+        var ii = 60;
+
+        function changeSendCodeText() {
+            if (ii >= 0) {
+                $("#sendCode").html("验证码已发送(" + ii + "s)");
+                ii--;
+            } else {
+                $("#sendCode").attr("href", "javascript:sendLoginCode();");
+                $("#sendCode").html("发送验证码");
+                ii = 60;
+                clearInterval(changeSendCodeFunction);
+            }
+        }
+
+        /**
+         * 发送登陆验证码
+         */
+        function sendLoginCode() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+
+            if (username != null && username != 'undefined' && username.length > 3 && username.length <= 18) {
+
+            } else {
+                alert("用户名不正确!");
+                return false;
+            }
+
+            if (password != null && password != 'undefined' && password.length > 3 && password.length <= 18) {
+
+            } else {
+                alert("密码不正确!");
+                return false;
+            }
+        }
+    </script>
+<body>
+<div class="bg"></div>
+
+<div class="login-page">
+    <div class="login-body">
+        <div class="login-title" style="font-size: 40px; color: #3c3c3c;"><strong>Beauty报表配置系统</strong></div>
+        <div class="panel-login clearfix">
+            <form id="loginForm" method="POST" action="/login.action">
+                <div class="panel-wrap">
+                    <ul class="alert alert-warning" id="errorPlace" style="display: none;"></ul>
+                    <ul class="login-form">
+                        <li class="item">
+                            <label for="username" class="item-name icon-user"></label>
+                            <input type="text" class="f-input" id="username" name="username" data-rule-required="true" placeholder="请输入用户名" value="">
+                        </li>
+                        <li class="item">
+                            <label for="password" class="item-name icon-password"></label>
+                            <input type="password" class="f-input" id="password" name="password" data-rule-required="true" placeholder="请输入密码" value="">
+                        </li>
+                    </ul>
+                    <div class="login-btn">
+                        <input class="btn btn-primary btn-block btn-lg" value="登录" type="submit">
+                    </div>
+                </div>
+            </form>
+            <div style="margin-top: 200px; text-align: center;">Copyright © 2016 dssmp.com All rights reserved. </div>
+        </div>
+    </div>
+    <div class="login-footer">
+        <div class="copyright">
+        </div>
+    </div>
+</div>
+<div class="mask" id="overlay"></div>
+<div class="mask-msg" id="overlayMsg"></div>
+</body>
+</html>
