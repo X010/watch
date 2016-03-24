@@ -10,6 +10,7 @@ import com.dssmp.watch.model.NameSpace;
 import com.dssmp.watch.model.Template;
 import com.dssmp.watch.service.AlarmService;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,7 @@ public class AlarmServiceImpl implements AlarmService {
     private MetricDao metricDao;
 
     @Override
-    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare) {
+    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare, String groups) {
         Preconditions.checkNotNull(name);
         Preconditions.checkArgument(template > 0);
         Preconditions.checkArgument(namespace > 0);
@@ -57,6 +58,12 @@ public class AlarmServiceImpl implements AlarmService {
         Alarm alarm = new Alarm();
         alarm.setName(name);
         alarm.setComplare(complare);
+        if (!Strings.isNullOrEmpty(groups)) {
+            alarm.setGroups(groups);
+        } else {
+            return;
+        }
+
         //判断模板是否存在
         Template templateObj = this.templateDao.findTemplateById(template);
         if (templateObj != null) {

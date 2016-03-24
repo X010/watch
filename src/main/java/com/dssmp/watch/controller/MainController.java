@@ -4,6 +4,7 @@ import com.dssmp.watch.model.*;
 import com.dssmp.watch.service.*;
 import com.dssmp.watch.util.CONST;
 import com.dssmp.watch.util.RequestUtil;
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -152,8 +153,10 @@ public class MainController {
             long namespace = RequestUtil.getLong(request, "namespace", 0);
             long metric = RequestUtil.getLong(request, "metric", 0);
             int complare = RequestUtil.getInt(request, "complare", 1);
+            String[] groups = request.getParameterValues("groups");
             if (!Strings.isNullOrEmpty(name) && template > 0 && namespace > 0 && metric > 0) {
-                this.alarmService.saveAlarm(name, threshold, template, namespace, metric, complare);
+                String groupsStr = Joiner.on(",").join(groups);
+                this.alarmService.saveAlarm(name, threshold, template, namespace, metric, complare, groupsStr);
             }
         }
         //读取模板列表

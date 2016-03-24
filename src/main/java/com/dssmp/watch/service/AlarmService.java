@@ -32,7 +32,7 @@ public interface AlarmService {
      * @param namespace
      * @param metric
      */
-    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare);
+    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare,String groups);
 
 
     /**
