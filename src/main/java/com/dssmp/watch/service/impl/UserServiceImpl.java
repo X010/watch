@@ -3,6 +3,7 @@ package com.dssmp.watch.service.impl;
 import com.dssmp.watch.dao.UserDao;
 import com.dssmp.watch.model.User;
 import com.dssmp.watch.service.UserService;
+import com.dssmp.watch.util.MD5Util;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsernameAndPassword(String username, String password) {
         Preconditions.checkNotNull(username);
         Preconditions.checkNotNull(password);
+        password = MD5Util.MD5(password);
         return this.userDao.findUserByUserNameAndPassword(username, password);
     }
 

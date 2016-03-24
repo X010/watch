@@ -78,6 +78,110 @@ public class MainController {
         return model;
     }
 
+    /**
+     * 主界面
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "mainframe.action")
+    public ModelAndView mainFrame(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("mainframe");
+        return model;
+    }
+
+    /**
+     * 模板管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "template_m.action")
+    public ModelAndView template_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("template_m");
+        return model;
+    }
+
+    /**
+     * 报警管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "alarm_m.action")
+    public ModelAndView alarm_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("alarm_m");
+        return model;
+    }
+
+    /**
+     * 命名空间管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "namespace_m.action")
+    public ModelAndView namespace_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("namespace_m");
+        return model;
+    }
+
+    /**
+     * 用户管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "user_m.action")
+    public ModelAndView user_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("user_m");
+        return model;
+    }
+
+    /**
+     * 指标管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "metric_m.action")
+    public ModelAndView metric_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("metric_m");
+        return model;
+    }
+
+    /**
+     * 指标查询
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "metric_s.action")
+    public ModelAndView metric_s(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+
+        model.setViewName("metric_s");
+        return model;
+    }
 
     /**
      * 读取当前用户
