@@ -37,7 +37,7 @@ public interface UserDao {
      *
      * @param user
      */
-    @Update("update watch_user set username=#{username},password=#{password} where id=#{id}")
+    @Update("update watch_user set password=#{password} where id=#{id}")
     public void updateUser(User user);
 
     /**
@@ -49,6 +49,14 @@ public interface UserDao {
      */
     @Select("select * from watch_user where username=#{username} and password=#{password} limit 1")
     public User findUserByUserNameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 根据用户名查询用户
+     * @param username
+     * @return
+     */
+    @Select("select * from watch_user where username=#{username} limit 1")
+    public User findUserByUserName(@Param("username")String username);
 
     /**
      * 根据ID获取用户

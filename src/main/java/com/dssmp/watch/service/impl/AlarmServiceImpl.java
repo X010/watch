@@ -1,9 +1,19 @@
 package com.dssmp.watch.service.impl;
 
 import com.dssmp.watch.dao.AlarmDao;
+import com.dssmp.watch.dao.MetricDao;
+import com.dssmp.watch.dao.NameSpaceDao;
+import com.dssmp.watch.dao.TemplateDao;
+import com.dssmp.watch.model.Alarm;
+import com.dssmp.watch.model.Metric;
+import com.dssmp.watch.model.NameSpace;
+import com.dssmp.watch.model.Template;
 import com.dssmp.watch.service.AlarmService;
+import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,5 +38,69 @@ public class AlarmServiceImpl implements AlarmService {
     @Autowired
     private AlarmDao alarmDao;
 
+    @Autowired
+    private TemplateDao templateDao;
 
+    @Autowired
+    private NameSpaceDao nameSpaceDao;
+
+    @Autowired
+    private MetricDao metricDao;
+
+    @Override
+    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare) {
+        Preconditions.checkNotNull(name);
+        Preconditions.checkArgument(template > 0);
+        Preconditions.checkArgument(namespace > 0);
+        Preconditions.checkArgument(metric > 0);
+
+        Alarm alarm = new Alarm();
+        alarm.setName(name);
+        alarm.setComplare(complare);
+        //判断模板是否存在
+        Template templateObj = this.templateDao.findTemplateById(template);
+        if (templateObj != null) {
+            alarm.setTid(templateObj.getId());
+            alarm.setTemplate(templateObj.getTitle());
+        } else {
+            return;
+        }
+
+        //判断命名空间是否在存
+        NameSpace nameSpaceObj = this.nameSpaceDao.findNameSpaceById(namespace);
+        if (nameSpaceObj != null) {
+            alarm.setNid(nameSpaceObj.getId());
+            alarm.setNamespace(nameSpaceObj.getName());
+        } else {
+            return;
+        }
+
+        //判断指标是否存在
+        Metric metricObj = this.metricDao.findMetricById(metric);
+        if (metricObj != null) {
+            alarm.setMid(metricObj.getId());
+            alarm.setMetric(metricObj.getMetricname());
+        } else {
+            return;
+        }
+
+        this.alarmDao.insertAlarm(alarm);
+    }
+
+    @Override
+    public List<Alarm> getAlarmByPage(int page, int size) {
+        Preconditions.checkArgument(page > 0);
+        Preconditions.checkArgument(size > 0);
+        int start = (page - 1) * size;
+        return this.alarmDao.findAlarmByPage(start, size);
+    }
+
+    @Override
+    public int countAlarm(int size) {
+        int totalRow = this.alarmDao.countAlarmRows();
+        if (totalRow % size == 0) {
+            return totalRow / size;
+        }
+        return totalRow / size + 1;
+    }
 }

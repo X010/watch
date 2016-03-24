@@ -1,7 +1,7 @@
 package com.dssmp.watch.controller;
 
-import com.dssmp.watch.model.User;
-import com.dssmp.watch.service.UserService;
+import com.dssmp.watch.model.*;
+import com.dssmp.watch.service.*;
 import com.dssmp.watch.util.CONST;
 import com.dssmp.watch.util.RequestUtil;
 import com.google.common.base.Strings;
@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,6 +38,17 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NameSpaceService nameSpaceService;
+
+    @Autowired
+    private TemplateService templateService;
+
+    @Autowired
+    private MetricService metricService;
+
+    @Autowired
+    private AlarmService alarmService;
 
     /**
      * 登陆
@@ -103,7 +116,21 @@ public class MainController {
     @RequestMapping(value = "template_m.action")
     public ModelAndView template_m(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String title = RequestUtil.getString(request, "title", null);
+            String content = RequestUtil.getString(request, "content", null);
 
+            if (!Strings.isNullOrEmpty(title) && !Strings.isNullOrEmpty(content)) {
+                Template template = new Template();
+                template.setTitle(title);
+                template.setContent(content);
+                this.templateService.saveTemplate(template);
+            }
+        }
+        List<Template> templates = this.templateService.getAllTemplate();
+        if (templates != null) {
+            model.addObject("templates", templates);
+        }
         model.setViewName("template_m");
         return model;
     }
@@ -118,6 +145,46 @@ public class MainController {
     @RequestMapping(value = "alarm_m.action")
     public ModelAndView alarm_m(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String name = RequestUtil.getString(request, "name", null);
+            double threshold = RequestUtil.getDouble(request, "threshold", 0);
+            long template = RequestUtil.getLong(request, "template", 0);
+            long namespace = RequestUtil.getLong(request, "namespace", 0);
+            long metric = RequestUtil.getLong(request, "metric", 0);
+            int complare = RequestUtil.getInt(request, "complare", 1);
+            if (!Strings.isNullOrEmpty(name) && template > 0 && namespace > 0 && metric > 0) {
+                this.alarmService.saveAlarm(name, threshold, template, namespace, metric, complare);
+            }
+        }
+        //读取模板列表
+        List<Template> templates = this.templateService.getAllTemplate();
+        if (templates != null) {
+            model.addObject("templates", templates);
+        }
+
+        //读取命名空间列表
+        List<NameSpace> nameSpaces = this.nameSpaceService.getAllNameSpace();
+        if (nameSpaces != null) {
+            model.addObject("nameSpaces", nameSpaces);
+        }
+
+        //读取指标列表
+        List<Metric> metrics = this.metricService.getAllMetric();
+        if (metrics != null) {
+            model.addObject("metrics", metrics);
+        }
+
+        //读取报警规则
+        int size = RequestUtil.getInt(request, "size", CONST.DEFAULT_SIZE);
+        int page = RequestUtil.getInt(request, "page", CONST.DEFAULT_PAGE);
+        List<Alarm> alarms = this.alarmService.getAlarmByPage(page, size);
+        if (alarms != null) {
+            model.addObject("alarms", alarms);
+        }
+
+        //分页数
+        int pageNum = this.alarmService.countAlarm(CONST.DEFAULT_SIZE);
+        model.addObject("pageNum", pageNum);
 
         model.setViewName("alarm_m");
         return model;
@@ -133,7 +200,19 @@ public class MainController {
     @RequestMapping(value = "namespace_m.action")
     public ModelAndView namespace_m(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
-
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String name = RequestUtil.getString(request, "name", null);
+            if (!Strings.isNullOrEmpty(name)) {
+                NameSpace nameSpace = new NameSpace();
+                nameSpace.setCreatetime(new Date());
+                nameSpace.setName(name);
+                this.nameSpaceService.saveNameSpace(nameSpace);
+            }
+        }
+        List<NameSpace> nameSpaceList = this.nameSpaceService.getAllNameSpace();
+        if (nameSpaceList != null) {
+            model.addObject("namespaces", nameSpaceList);
+        }
         model.setViewName("namespace_m");
         return model;
     }
@@ -148,7 +227,20 @@ public class MainController {
     @RequestMapping(value = "user_m.action")
     public ModelAndView user_m(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
-
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String username = RequestUtil.getString(request, "username", null);
+            String password = RequestUtil.getString(request, "password", null);
+            if (!Strings.isNullOrEmpty(username) && !Strings.isNullOrEmpty(password)) {
+                User user = new User();
+                user.setPassword(password);
+                user.setUsername(username);
+                this.userService.saveUser(user);
+            }
+        }
+        List<User> users = this.userService.getAllUser();
+        if (users != null) {
+            model.addObject("users", users);
+        }
         model.setViewName("user_m");
         return model;
     }
@@ -163,7 +255,23 @@ public class MainController {
     @RequestMapping(value = "metric_m.action")
     public ModelAndView metric_m(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String metricname = RequestUtil.getString(request, "metricname", null);
+            if (!Strings.isNullOrEmpty(metricname)) {
+                Metric metric = new Metric();
+                metric.setMetricname(metricname);
 
+                this.metricService.saveMetric(metric);
+            }
+        }
+        int size = RequestUtil.getInt(request, "size", CONST.DEFAULT_SIZE);
+        int page = RequestUtil.getInt(request, "page", CONST.DEFAULT_PAGE);
+        List<Metric> metrics = this.metricService.getMetricByPage(page, size);
+        int pageNum = this.metricService.getCountPage(size);
+        if (metrics != null) {
+            model.addObject("metrics", metrics);
+        }
+        model.addObject("pageNum", pageNum);
         model.setViewName("metric_m");
         return model;
     }

@@ -29,6 +29,16 @@ public class CONST {
     public static String HTTP_METHOD_POST = "POST";
 
     /**
+     * 默认每页个数
+     */
+    public static int DEFAULT_SIZE = 20;
+
+    /**
+     * 默认页数
+     */
+    public static int DEFAULT_PAGE = 1;
+
+    /**
      * 登陆标识
      */
     public static String LOGIN_FLAG = "LOGIN_FLAG";

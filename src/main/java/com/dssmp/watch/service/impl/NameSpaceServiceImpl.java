@@ -1,9 +1,14 @@
 package com.dssmp.watch.service.impl;
 
 import com.dssmp.watch.dao.NameSpaceDao;
+import com.dssmp.watch.model.NameSpace;
 import com.dssmp.watch.service.NameSpaceService;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,4 +32,27 @@ public class NameSpaceServiceImpl implements NameSpaceService {
 
     @Autowired
     private NameSpaceDao nameSpaceDao;
+
+    @Override
+    public void saveNameSpace(NameSpace nameSpace) {
+        Preconditions.checkNotNull(nameSpace);
+        //检测名称是否已经存在
+        if (!Strings.isNullOrEmpty(nameSpace.getName())) {
+            NameSpace oldNameSpace = this.nameSpaceDao.findNameSpaceByName(nameSpace.getName());
+            if (oldNameSpace == null) {
+                if (nameSpace.getId() > 0) {
+                    //修改
+                    this.nameSpaceDao.updateNameSpace(nameSpace);
+                } else {
+                    //新建
+                    this.nameSpaceDao.insertNameSpace(nameSpace);
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<NameSpace> getAllNameSpace() {
+        return this.nameSpaceDao.findAllNameSpace();
+    }
 }

@@ -48,6 +48,57 @@ public class Alarm {
      */
     private int complare;
 
+    /**
+     * 命名空间名称
+     */
+    private String namespace;
+
+    /**
+     * 模板名称
+     */
+    private String template;
+
+    /**
+     * 指标
+     */
+    private String metric;
+
+    /**
+     * 名称
+     */
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public String getMetric() {
+        return metric;
+    }
+
+    public void setMetric(String metric) {
+        this.metric = metric;
+    }
 
     public long getId() {
         return id;

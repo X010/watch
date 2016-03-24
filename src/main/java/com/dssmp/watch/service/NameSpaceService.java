@@ -1,5 +1,9 @@
 package com.dssmp.watch.service;
 
+import com.dssmp.watch.model.NameSpace;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +22,20 @@ package com.dssmp.watch.service;
  * limitations under the License.
  */
 public interface NameSpaceService {
+
+
+    /**
+     * 保存命名空间
+     *
+     * @param nameSpace
+     */
+    public void saveNameSpace(NameSpace nameSpace);
+
+
+    /**
+     * 获取所有命名空间
+     *
+     * @return
+     */
+    public List<NameSpace> getAllNameSpace();
 }

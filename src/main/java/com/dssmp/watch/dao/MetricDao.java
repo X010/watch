@@ -53,4 +53,30 @@ public interface MetricDao {
      */
     @Select("select * from watch_metric limit #{start},#{limit}")
     public List<Metric> findMetricByPage(@Param("start") int start, @Param("limit") int limit);
+
+    /**
+     * 根据ID获取指标
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from watch_metric where id=#{id}")
+    public Metric findMetricById(@Param("id") long id);
+
+    /**
+     * 获取总行数
+     *
+     * @return
+     */
+    @Select("select count(1) from watch_metric")
+    public int countMetricRow();
+
+
+    /**
+     * 获取所有的指标
+     *
+     * @return
+     */
+    @Select("select * from watch_metric")
+    public List<Metric> findMetric();
 }

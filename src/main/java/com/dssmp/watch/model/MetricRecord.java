@@ -60,6 +60,19 @@ public class MetricRecord {
      */
     private double mvalue;
 
+    /**
+     * 组
+     */
+    private String mgroup;
+
+    public String getMgroup() {
+        return mgroup;
+    }
+
+    public void setMgroup(String mgroup) {
+        this.mgroup = mgroup;
+    }
+
     public long getId() {
         return id;
     }

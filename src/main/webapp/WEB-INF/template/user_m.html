@@ -49,12 +49,20 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <tr>
-                                <th>菜单名称</th>
-                                <th>菜单级别</th>
+                                <th>ID</th>
+                                <th>用户名</th>
                                 <!--<th>触发器名</th>-->
-                                <th>菜单地址</th>
                                 <th>操作</th>
                             </tr>
+                            <#if users??>
+                                <#list users as item>
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.username}</td>
+                                        <td><a class="btn btn-danger btn-xs" href="#">delete</a></td>
+                                    </tr>
+                                </#list>
+                            </#if>
                         </table>
                     </div>
                     <!-- /.box-body -->

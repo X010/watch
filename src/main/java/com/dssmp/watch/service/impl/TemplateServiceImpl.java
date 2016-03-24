@@ -36,7 +36,13 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public void saveTemplate(Template template) {
         Preconditions.checkNotNull(template);
-
+        if (template.getId() > 0) {
+            //修改
+            this.templateDao.updateTemplate(template);
+        } else {
+            //添加
+            this.templateDao.insertTemplate(template);
+        }
     }
 
     @Override
@@ -47,7 +53,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public List<Template> getAllTemplate() {
-        return null;
+        return this.templateDao.findAllTemplate();
     }
 
     @Override

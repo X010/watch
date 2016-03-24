@@ -29,7 +29,7 @@ public interface AlarmDao {
      *
      * @param alarm
      */
-    @Insert("insert into watch_alarm(mid,nid,threshold,tid,complare)values(#{mid},#{nid},#{threshold},#{tid},#{complare})")
+    @Insert("insert into watch_alarm(name,mid,nid,threshold,tid,complare,namespace,template,metric)values(#{name},#{mid},#{nid},#{threshold},#{tid},#{complare},#{namespace},#{template},#{metric})")
     public void insertAlarm(Alarm alarm);
 
 
@@ -69,4 +69,11 @@ public interface AlarmDao {
      */
     @Select("select * from watch_alarm limit #{start},#{limit}")
     public List<Alarm> findAlarmByPage(@Param("start") int start, @Param("limit") int limit);
+
+    /**
+     * 统计行数
+     * @return
+     */
+    @Select("select count(1) from watch_alarm")
+    public int countAlarmRows();
 }

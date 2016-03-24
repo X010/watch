@@ -53,6 +53,20 @@ public class RequestUtil {
         return defaultValue;
     }
 
+    /**
+     * 获取Double公司
+     *
+     * @param request
+     * @param parameter
+     * @param defau
+     * @return
+     */
+    public static double getDouble(HttpServletRequest request, String parameter, double defau) {
+        String defaultValue = request.getParameter(parameter);
+        if (!Strings.isNullOrEmpty(defaultValue)) return Double.valueOf(defaultValue);
+        return defau;
+    }
+
 
     /**
      * 获取默认值

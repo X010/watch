@@ -49,15 +49,41 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <tr>
-                                <th>菜单名称</th>
-                                <th>菜单级别</th>
-                                <!--<th>触发器名</th>-->
-                                <th>菜单地址</th>
+                                <th>ID</th>
+                                <th>指标名称</th>
                                 <th>操作</th>
                             </tr>
+                            <#if metrics??>
+                                <#list  metrics as item>
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.metricname}</td>
+                                        <td><a class="btn btn-danger btn-xs" href="#">delete</a></td>
+                                    </tr>
+                                </#list>
+                            </#if>
                         </table>
                     </div>
                     <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <#if pageNum??>
+                                <#if (pageNum > 0) >
+                                    <#list 1..pageNum as t>
+                                    <li><a href="metric_m.action?page=${t}">${t}</a></li>
+                                    </#list>
+                                </#if>
+                            </#if>
+                            <!--
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                            -->
+                        </ul>
+                    </div>
                 </div>
                 <!-- /.box -->
             </div>
@@ -67,24 +93,17 @@
                 <!-- Horizontal Form -->
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add User<span style="font-size: 12px;">  *用户名和密码建议使用英文字符,中文存在乱码情况</span></h3>
+                        <h3 class="box-title">Add Metric<span style="font-size: 12px;">  *使用英文</span></h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form method="post" action="user_m.action" class="form-horizontal">
+                    <form method="post" action="metric_m.action" class="form-horizontal">
 
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="username" class="col-sm-2 control-label">用户名</label>
+                                <label for="metricname" class="col-sm-2 control-label">指标</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="col-sm-2 control-label">密码</label>
-
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="密码">
+                                    <input type="text" class="form-control" id="metricname" name="metricname" placeholder="用户名">
                                 </div>
                             </div>
                             <div id="params">

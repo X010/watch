@@ -59,6 +59,15 @@ public interface NameSpaceDao {
     public NameSpace findNameSpaceById(@Param("id") long id);
 
     /**
+     * 根据名称获取NameSpace
+     *
+     * @param name
+     * @return
+     */
+    @Select("select * from watch_namespace where name=#{name} limit 1")
+    public NameSpace findNameSpaceByName(@Param("name") String name);
+
+    /**
      * 获取所有命名空间
      *
      * @return

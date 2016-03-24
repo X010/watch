@@ -36,10 +36,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         Preconditions.checkNotNull(user);
+        user.setPassword(MD5Util.MD5(user.getPassword()));
         if (user.getId() > 0) {
             this.userDao.updateUser(user);
         } else {
-            this.userDao.insertUser(user);
+            User oldUser = this.userDao.findUserByUserName(user.getUsername());
+            if (oldUser == null) {
+                this.userDao.insertUser(user);
+            }
         }
     }
 

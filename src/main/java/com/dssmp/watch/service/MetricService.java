@@ -1,5 +1,9 @@
 package com.dssmp.watch.service;
 
+import com.dssmp.watch.model.Metric;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +22,32 @@ package com.dssmp.watch.service;
  * limitations under the License.
  */
 public interface MetricService {
+
+    /**
+     * 保存Metric对象
+     * @param metric
+     */
+    public void saveMetric(Metric metric);
+
+
+    /**
+     * 分页读取指标
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<Metric> getMetricByPage(int page,int size);
+
+    /**
+     * 获取总页数
+     * @param page
+     * @return
+     */
+    public int getCountPage(int page);
+
+    /**
+     * 获取所有的指标
+     * @return
+     */
+    public List<Metric> getAllMetric();
 }

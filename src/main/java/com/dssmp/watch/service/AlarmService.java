@@ -1,5 +1,9 @@
 package com.dssmp.watch.service;
 
+import com.dssmp.watch.model.Alarm;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +22,31 @@ package com.dssmp.watch.service;
  * limitations under the License.
  */
 public interface AlarmService {
+
+    /**
+     * 保存报警配置
+     *
+     * @param name
+     * @param threshold
+     * @param template
+     * @param namespace
+     * @param metric
+     */
+    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare);
+
+
+    /**
+     * 分页读报警设置
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<Alarm> getAlarmByPage(int page, int size);
+
+
+    /**
+     * 获取报警记录页面
+     * @return
+     */
+    public int countAlarm(int size);
 }
