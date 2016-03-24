@@ -68,6 +68,19 @@ public class Alarm {
      */
     private String name;
 
+    /**
+     * 通知组
+     */
+    private String groups;
+
+    public String getGroups() {
+        return groups;
+    }
+
+    public void setGroups(String groups) {
+        this.groups = groups;
+    }
+
     public String getName() {
         return name;
     }

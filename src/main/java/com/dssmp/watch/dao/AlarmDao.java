@@ -29,7 +29,8 @@ public interface AlarmDao {
      *
      * @param alarm
      */
-    @Insert("insert into watch_alarm(name,mid,nid,threshold,tid,complare,namespace,template,metric)values(#{name},#{mid},#{nid},#{threshold},#{tid},#{complare},#{namespace},#{template},#{metric})")
+    @Insert("insert into watch_alarm(name,mid,nid,threshold,tid,complare,namespace,template,metric,groups)" +
+            "values(#{name},#{mid},#{nid},#{threshold},#{tid},#{complare},#{namespace},#{template},#{metric},#{groups})")
     public void insertAlarm(Alarm alarm);
 
 

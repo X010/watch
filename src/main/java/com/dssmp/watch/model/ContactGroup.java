@@ -1,4 +1,4 @@
-package com.dssmp.watch.util;
+package com.dssmp.watch.model;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,42 +17,58 @@ package com.dssmp.watch.util;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class CONST {
-    /**
-     * GET方式
-     */
-    public static String HTTP_METHOD_GET = "GET";
+public class ContactGroup {
 
     /**
-     * POST
+     * ID
      */
-    public static String HTTP_METHOD_POST = "POST";
+    private long id;
 
     /**
-     * 默认每页个数
+     * 组名
      */
-    public static int DEFAULT_SIZE = 20;
+    private String groupname;
 
     /**
-     * 默认页数
+     * 通知对象  1手机,2邮件,3手机与地址
      */
-    public static int DEFAULT_PAGE = 1;
+    private int notic;
 
     /**
-     * 登陆标识
+     * 通知者
      */
-    public static String LOGIN_FLAG = "LOGIN_FLAG";
-
-    /**
-     * 组件占位符
-     */
-    public static String COMPENT_PH = "#{COMPENT_PH}";
-
-    /**
-     * 正则表达式
-     */
-    public static String COMPENT_PH_PATTERN = "#\\{.*?\\}";
+    private String contacts;
 
 
+    public String getContacts() {
+        return contacts;
+    }
 
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
+    public int getNotic() {
+        return notic;
+    }
+
+    public void setNotic(int notic) {
+        this.notic = notic;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getGroupname() {
+        return groupname;
+    }
+
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
+    }
 }

@@ -1,4 +1,4 @@
-package com.dssmp.watch.util;
+package com.dssmp.watch.model;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,42 +17,58 @@ package com.dssmp.watch.util;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class CONST {
-    /**
-     * GET方式
-     */
-    public static String HTTP_METHOD_GET = "GET";
+public class Contact {
 
     /**
-     * POST
+     * ID
      */
-    public static String HTTP_METHOD_POST = "POST";
+    private long id;
 
     /**
-     * 默认每页个数
+     * 名称
      */
-    public static int DEFAULT_SIZE = 20;
+    private String name;
 
     /**
-     * 默认页数
+     * 手机号码
      */
-    public static int DEFAULT_PAGE = 1;
+    private String phone;
 
     /**
-     * 登陆标识
+     * 邮件地址
      */
-    public static String LOGIN_FLAG = "LOGIN_FLAG";
-
-    /**
-     * 组件占位符
-     */
-    public static String COMPENT_PH = "#{COMPENT_PH}";
-
-    /**
-     * 正则表达式
-     */
-    public static String COMPENT_PH_PATTERN = "#\\{.*?\\}";
+    private String email;
 
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

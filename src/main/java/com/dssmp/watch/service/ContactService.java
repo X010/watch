@@ -1,4 +1,4 @@
-package com.dssmp.watch.util;
+package com.dssmp.watch.service;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,42 +17,5 @@ package com.dssmp.watch.util;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class CONST {
-    /**
-     * GET方式
-     */
-    public static String HTTP_METHOD_GET = "GET";
-
-    /**
-     * POST
-     */
-    public static String HTTP_METHOD_POST = "POST";
-
-    /**
-     * 默认每页个数
-     */
-    public static int DEFAULT_SIZE = 20;
-
-    /**
-     * 默认页数
-     */
-    public static int DEFAULT_PAGE = 1;
-
-    /**
-     * 登陆标识
-     */
-    public static String LOGIN_FLAG = "LOGIN_FLAG";
-
-    /**
-     * 组件占位符
-     */
-    public static String COMPENT_PH = "#{COMPENT_PH}";
-
-    /**
-     * 正则表达式
-     */
-    public static String COMPENT_PH_PATTERN = "#\\{.*?\\}";
-
-
-
+public interface ContactService {
 }
