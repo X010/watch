@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2012 Sohu TV. All right reserved.
  */
-package com.dssmp.watch.until;
+package com.dssmp.watch.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;

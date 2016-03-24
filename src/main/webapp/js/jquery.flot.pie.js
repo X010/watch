@@ -306,7 +306,7 @@ More detail and specific examples can be found in the included HTML file.
 			var slices = plot.getData(),
 				attempts = 0;
 
-			// Keep shrinking the pie's radius until drawPie returns true,
+			// Keep shrinking the pie's radius util drawPie returns true,
 			// indicating that all the labels fit, or we try too many times.
 
 			do {
@@ -746,7 +746,7 @@ More detail and specific examples can be found in the included HTML file.
 				}
 
 				//octx.fillStyle = parseColor(options.series.pie.highlight.color).scale(null, null, null, options.series.pie.highlight.opacity).toString();
-				octx.fillStyle = "rgba(255, 255, 255, " + options.series.pie.highlight.opacity + ")"; // this is temporary until we have access to parseColor
+				octx.fillStyle = "rgba(255, 255, 255, " + options.series.pie.highlight.opacity + ")"; // this is temporary util we have access to parseColor
 				octx.beginPath();
 				if (Math.abs(series.angle - Math.PI * 2) > 0.000000001) {
 					octx.moveTo(0, 0); // Center of the pie

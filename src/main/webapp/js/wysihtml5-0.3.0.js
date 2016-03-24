@@ -1010,7 +1010,7 @@ rangy.createModule("DomUtil", function(api, module) {
     /*----------------------------------------------------------------------------------------------------------------*/
 
     /**
-     * Currently iterates through all nodes in the range on creation until I think of a decent way to do it
+     * Currently iterates through all nodes in the range on creation util I think of a decent way to do it
      * TODO: Look into making this a proper iterator, not requiring preloading everything first
      * @constructor
      */
@@ -1964,7 +1964,7 @@ rangy.createModule("DomUtil", function(api, module) {
         var comparison, workingComparisonType = isStart ? "StartToStart" : "StartToEnd";
         var previousNode, nextNode, boundaryPosition, boundaryNode;
 
-        // Move the working range through the container's children, starting at the end and working backwards, until the
+        // Move the working range through the container's children, starting at the end and working backwards, util the
         // working range reaches or goes past the boundary we're interested in
         do {
             containerElement.insertBefore(workingNode, workingNode.previousSibling);
@@ -4396,7 +4396,7 @@ wysihtml5.dom.getAsDom = (function() {
     return tempElement;
   };
 })();/**
- * Walks the dom tree from the given node up until it finds a match
+ * Walks the dom tree from the given node up util it finds a match
  * Designed for optimal performance.
  *
  * @param {Element} node The from which to check the parent nodes
@@ -8469,7 +8469,7 @@ wysihtml5.views.View = Base.extend(
     dom.observe(focusBlurElement, "focus", function() {
       that.parent.fire("focus").fire("focus:composer");
 
-      // Delay storing of state until all focus handler are fired
+      // Delay storing of state util all focus handler are fired
       // especially the one which resets the placeholder
       setTimeout(function() { state = that.getValue(); }, 0);
     });

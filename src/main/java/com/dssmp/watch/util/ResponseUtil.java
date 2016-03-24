@@ -1,4 +1,4 @@
-package com.dssmp.watch.until;
+package com.dssmp.watch.util;
 
 import com.google.common.base.Strings;
 

@@ -7,7 +7,7 @@
 /* Display a countdown timer.
    Attach it with options like:
    $('div selector').countdown(
-       {until: new Date(2009, 1 - 1, 1, 0, 0, 0), onExpiry: happyNewYear}); */
+       {util: new Date(2009, 1 - 1, 1, 0, 0, 0), onExpiry: happyNewYear}); */
 
 (function($) { // Hide scope, no $ conflict
 
@@ -312,7 +312,7 @@ $.extend(Countdown.prototype, {
 	/* Calculate interal settings for an instance.
 	   @param  target  (element) the containing division
 	   @param  inst    (object) the current settings for this instance
-	   @param  recalc  (boolean) true if until or since are set */
+	   @param  recalc  (boolean) true if util or since are set */
 	_adjustSettings: function(target, inst, recalc) {
 		var now;
 		var serverOffset = 0;

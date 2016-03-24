@@ -7589,7 +7589,7 @@
 		 * as the column is repeatedly sorted upon - i.e. the first value is used
 		 * as the sorting direction when the column if first sorted (clicked on).
 		 * Sort it again (click again) and it will move on to the next index.
-		 * Repeat until loop.
+		 * Repeat util loop.
 		 *  @type array
 		 */
 		"asSorting": null,
@@ -8068,7 +8068,7 @@
 		 * Deferred rendering can provide DataTables with a huge speed boost when you
 		 * are using an Ajax or JS data source for the table. This option, when set to
 		 * true, will cause DataTables to defer the creation of the table elements for
-		 * each row until they are needed for a draw - saving a significant amount of
+		 * each row util they are needed for a draw - saving a significant amount of
 		 * time.
 		 *  @type boolean
 		 *  @default false
@@ -10573,7 +10573,7 @@
 			"bAutoWidth": null,
 	
 			/**
-			 * Delay the creation of TR and TD elements until they are actually
+			 * Delay the creation of TR and TD elements util they are actually
 			 * needed by a driven page draw. This can give a significant speed
 			 * increase for Ajax source and Javascript source data, but makes no
 			 * difference at all fro DOM and server-side processing tables.
@@ -11028,7 +11028,7 @@
 		
 		/**
 		 * Indicate if when using server-side processing the loading of data 
-		 * should be deferred until the second draw.
+		 * should be deferred util the second draw.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
 		 *  @type boolean

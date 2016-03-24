@@ -38,8 +38,8 @@
             </list>
         </property>
     </bean>
-    <!--
-    <bean id="sshInterceptor" class="com.dssmp.beauty.util.SshInterceptor"></bean>
+
+    <bean id="sshInterceptor" class="com.dssmp.watch.util.SshInterceptor"></bean>
     <bean
             class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
         <property name="interceptors">
@@ -48,8 +48,9 @@
             </list>
         </property>
     </bean>
-        -->
+    <!--
     <mvc:annotation-driven></mvc:annotation-driven>
+      -->
     <bean
             class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">

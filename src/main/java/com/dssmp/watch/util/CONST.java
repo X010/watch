@@ -1,4 +1,4 @@
-package com.dssmp.watch.until;
+package com.dssmp.watch.util;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one

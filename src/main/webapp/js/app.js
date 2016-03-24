@@ -112,7 +112,7 @@ var App = function () {
                 }   
                 resize = setTimeout(function() {
                     handleResponsive();    
-                }, 50); // wait 50ms until window resize finishes.                
+                }, 50); // wait 50ms util window resize finishes.
                 currheight = document.documentElement.clientHeight; // store last body client height
             });
         } else {
@@ -123,7 +123,7 @@ var App = function () {
                 resize = setTimeout(function() {
                     console.log('resize');
                     handleResponsive();    
-                }, 50); // wait 50ms until window resize finishes.
+                }, 50); // wait 50ms util window resize finishes.
             });
         }   
     }
