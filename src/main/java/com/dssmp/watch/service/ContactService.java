@@ -1,5 +1,10 @@
 package com.dssmp.watch.service;
 
+import com.dssmp.watch.model.Contact;
+import com.dssmp.watch.model.ContactGroup;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +23,52 @@ package com.dssmp.watch.service;
  * limitations under the License.
  */
 public interface ContactService {
+
+    /**
+     * 保存联系人对象
+     *
+     * @param contact
+     */
+    public void saveContact(Contact contact);
+
+
+    /**
+     * 保存联系人组
+     *
+     * @param contactGroup
+     */
+    public void saveContactGroup(ContactGroup contactGroup);
+
+
+    /**
+     * 获取联系人组列表
+     *
+     * @return
+     */
+    public List<ContactGroup> getContactGroup();
+
+
+    /**
+     * 分页面读取联系人
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<Contact> getContactByPage(int page, int size);
+
+    /**
+     * 获取所有联系人
+     *
+     * @return
+     */
+    public List<Contact> getAllContact();
+
+    /**
+     * 读取总页面
+     *
+     * @param size
+     * @return
+     */
+    public int getContactPage(int size);
 }

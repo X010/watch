@@ -51,6 +51,9 @@ public class MainController {
     @Autowired
     private AlarmService alarmService;
 
+    @Autowired
+    private ContactService contactService;
+
     /**
      * 登陆
      *
@@ -154,9 +157,9 @@ public class MainController {
             long metric = RequestUtil.getLong(request, "metric", 0);
             int complare = RequestUtil.getInt(request, "complare", 1);
             String[] groups = request.getParameterValues("groups");
-            if (!Strings.isNullOrEmpty(name) && template > 0 && namespace > 0 && metric > 0) {
-                String groupsStr = Joiner.on(",").join(groups);
-                this.alarmService.saveAlarm(name, threshold, template, namespace, metric, complare, groupsStr);
+            String groupStr = Joiner.on(",").skipNulls().join(groups);
+            if (!Strings.isNullOrEmpty(name) && template > 0 && namespace > 0 && metric > 0 && !Strings.isNullOrEmpty(groupStr)) {
+                this.alarmService.saveAlarm(name, threshold, template, namespace, metric, complare, groupStr);
             }
         }
         //读取模板列表
@@ -175,6 +178,12 @@ public class MainController {
         List<Metric> metrics = this.metricService.getAllMetric();
         if (metrics != null) {
             model.addObject("metrics", metrics);
+        }
+
+        //读取通知组列表
+        List<ContactGroup> contactGroups = this.contactService.getContactGroup();
+        if (contactGroups != null) {
+            model.addObject("contactGroups", contactGroups);
         }
 
         //读取报警规则
@@ -291,6 +300,84 @@ public class MainController {
         ModelAndView model = new ModelAndView();
 
         model.setViewName("metric_s");
+        return model;
+    }
+
+
+    /**
+     * 联系人管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "contact_m.action")
+    public ModelAndView contact_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String name = RequestUtil.getString(request, "name", null);
+            String phone = RequestUtil.getString(request, "phone", null);
+            String email = RequestUtil.getString(request, "email", null);
+            if (!Strings.isNullOrEmpty(name) && !Strings.isNullOrEmpty(phone) && !Strings.isNullOrEmpty(email)) {
+                Contact contact = new Contact();
+                contact.setName(name);
+                contact.setPhone(phone);
+                contact.setEmail(email);
+                this.contactService.saveContact(contact);
+            }
+        }
+
+        int size = RequestUtil.getInt(request, "size", CONST.DEFAULT_SIZE);
+        int page = RequestUtil.getInt(request, "page", CONST.DEFAULT_PAGE);
+
+        List<Contact> contacts = this.contactService.getContactByPage(page, size);
+        if (contacts != null) {
+            int pageNum = this.contactService.getContactPage(size);
+            model.addObject("contacts", contacts);
+            model.addObject("pageNum", pageNum);
+        }
+
+        model.setViewName("contact_m");
+        return model;
+    }
+
+    /**
+     * 联系人组管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "contact_group_m.action")
+    public ModelAndView contact_group_m(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String name = RequestUtil.getString(request, "name", null);
+            String[] contacts = request.getParameterValues("contact");
+            String contactStr = Joiner.on(",").skipNulls().join(contacts);
+            int notic = RequestUtil.getInt(request, "notic", 1);
+            if (!Strings.isNullOrEmpty(name) && !Strings.isNullOrEmpty(contactStr)) {
+                ContactGroup contactGroup = new ContactGroup();
+                contactGroup.setContacts(contactStr);
+                contactGroup.setGroupname(name);
+                contactGroup.setNotic(notic);
+                this.contactService.saveContactGroup(contactGroup);
+            }
+        }
+
+        //获取所有的联系人
+        List<Contact> contacts = this.contactService.getAllContact();
+        if (contacts != null) {
+            model.addObject("conacts", contacts);
+        }
+
+        //联系人组列表
+        List<ContactGroup> contactGroups = this.contactService.getContactGroup();
+        if (contactGroups != null) {
+            model.addObject("contactGroups", contactGroups);
+        }
+
+        model.setViewName("contact_group_m");
         return model;
     }
 
