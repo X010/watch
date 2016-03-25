@@ -18,4 +18,12 @@ package com.dssmp.watch.service;
  * limitations under the License.
  */
 public interface NoticService {
+
+    /**
+     * 通知联系人
+     * @param content
+     * @param contacts
+     */
+    public void noticContact(String content,String contacts);
+
 }

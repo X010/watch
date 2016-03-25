@@ -1,6 +1,9 @@
 package com.dssmp.watch.service.impl;
 
+import com.dssmp.watch.dao.ContactDao;
 import com.dssmp.watch.service.NoticService;
+import com.google.common.base.Preconditions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,5 +26,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoticServiceImpl implements NoticService {
 
+    @Autowired
+    private ContactDao contactDao;
 
+
+    @Override
+    public void noticContact(String content, String contacts) {
+        Preconditions.checkNotNull(content);
+        Preconditions.checkNotNull(contacts);
+
+
+    }
 }

@@ -8,6 +8,7 @@ import com.dssmp.watch.model.*;
 import com.dssmp.watch.service.AlarmService;
 import com.dssmp.watch.service.NoticService;
 import com.dssmp.watch.util.CONST;
+import com.dssmp.watch.util.TemplateUtil;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
@@ -191,9 +192,22 @@ public class AlarmServiceImpl implements AlarmService {
 
                 if (isNotic) {
                     //发送报警相关信息
+                    //读取模板ID
+                    Template template = this.templateDao.findTemplateById(alarm.getId());
+                    if (template != null) {
+                        String content = TemplateUtil.replaceTemplate(template.getContent(), metricRecord);
 
-
-
+                        //调用通知接口
+                        if (!Strings.isNullOrEmpty(content)) {
+                            try {
+                                this.noticService.noticContact(content, alarm.getGroups());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
+                        log.info("no found Template");
+                    }
                 }
             });
         }

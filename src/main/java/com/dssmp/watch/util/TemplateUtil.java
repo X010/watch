@@ -1,6 +1,7 @@
 package com.dssmp.watch.util;
 
 import com.dssmp.watch.model.MetricRecord;
+import com.google.common.base.Strings;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,8 +29,10 @@ public class TemplateUtil {
      * @return
      */
     public static String replaceTemplate(String content, MetricRecord metricRecord) {
+        if (!Strings.isNullOrEmpty(content)) {
+            //替换数据
 
-
+        }
         return null;
     }
 }
