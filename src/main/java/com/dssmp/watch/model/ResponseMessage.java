@@ -1,6 +1,4 @@
-package com.dssmp.watch.service;
-
-import com.dssmp.watch.model.MetricRecord;
+package com.dssmp.watch.model;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,12 +17,41 @@ import com.dssmp.watch.model.MetricRecord;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface MetricRecordService {
+public class ResponseMessage {
+
+    private long id;
 
     /**
-     * 保存指标
-     *
-     * @param metricRecord
+     * 状态
      */
-    public void saveMetricRecord(MetricRecord metricRecord);
+    private int status;
+
+    /**
+     * 消息
+     */
+    private String message;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

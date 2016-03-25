@@ -1,6 +1,7 @@
 package com.dssmp.watch.service.impl;
 
 import com.dssmp.watch.dao.MetricRecordDao;
+import com.dssmp.watch.model.MetricRecord;
 import com.dssmp.watch.service.MetricRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,4 +28,11 @@ public class MetricRecordServiceImpl implements MetricRecordService {
 
     @Autowired
     private MetricRecordDao metricRecordDao;
+
+    @Override
+    public void saveMetricRecord(MetricRecord metricRecord) {
+        //补充MetricRecord信息
+        
+
+    }
 }
