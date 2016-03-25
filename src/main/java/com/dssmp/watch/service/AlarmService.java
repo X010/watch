@@ -1,6 +1,7 @@
 package com.dssmp.watch.service;
 
 import com.dssmp.watch.model.Alarm;
+import com.dssmp.watch.model.MetricRecord;
 
 import java.util.List;
 
@@ -32,11 +33,12 @@ public interface AlarmService {
      * @param namespace
      * @param metric
      */
-    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare,String groups);
+    public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare, String groups);
 
 
     /**
      * 分页读报警设置
+     *
      * @param page
      * @param size
      * @return
@@ -46,7 +48,16 @@ public interface AlarmService {
 
     /**
      * 获取报警记录页面
+     *
      * @return
      */
     public int countAlarm(int size);
+
+
+    /**
+     * 检测并通知
+     *
+     * @param metricRecord
+     */
+    public void checkMetricRecordAndNoticAlarm(MetricRecord metricRecord);
 }

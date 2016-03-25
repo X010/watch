@@ -4,6 +4,7 @@ import com.dssmp.watch.dao.MetricRecordDao;
 import com.dssmp.watch.model.Metric;
 import com.dssmp.watch.model.MetricRecord;
 import com.dssmp.watch.model.NameSpace;
+import com.dssmp.watch.service.AlarmService;
 import com.dssmp.watch.service.MetricRecordService;
 import com.dssmp.watch.service.MetricService;
 import com.dssmp.watch.service.NameSpaceService;
@@ -39,6 +40,9 @@ public class MetricRecordServiceImpl implements MetricRecordService {
     @Autowired
     private NameSpaceService nameSpaceService;
 
+    @Autowired
+    private AlarmService alarmService;
+
 
     @Override
     public void saveMetricRecord(MetricRecord metricRecord) throws Exception {
@@ -62,6 +66,7 @@ public class MetricRecordServiceImpl implements MetricRecordService {
 
 
         //发送MetricRecord到监控队列里面去
+        this.alarmService.checkMetricRecordAndNoticAlarm(metricRecord);
 
 
         //添加到数据库

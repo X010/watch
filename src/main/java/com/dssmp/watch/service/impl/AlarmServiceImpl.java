@@ -4,10 +4,7 @@ import com.dssmp.watch.dao.AlarmDao;
 import com.dssmp.watch.dao.MetricDao;
 import com.dssmp.watch.dao.NameSpaceDao;
 import com.dssmp.watch.dao.TemplateDao;
-import com.dssmp.watch.model.Alarm;
-import com.dssmp.watch.model.Metric;
-import com.dssmp.watch.model.NameSpace;
-import com.dssmp.watch.model.Template;
+import com.dssmp.watch.model.*;
 import com.dssmp.watch.service.AlarmService;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -109,5 +106,12 @@ public class AlarmServiceImpl implements AlarmService {
             return totalRow / size;
         }
         return totalRow / size + 1;
+    }
+
+    @Override
+    public void checkMetricRecordAndNoticAlarm(MetricRecord metricRecord) {
+        Preconditions.checkNotNull(metricRecord);
+
+
     }
 }
