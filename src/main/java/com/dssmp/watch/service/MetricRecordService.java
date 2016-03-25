@@ -26,5 +26,5 @@ public interface MetricRecordService {
      *
      * @param metricRecord
      */
-    public void saveMetricRecord(MetricRecord metricRecord);
+    public void saveMetricRecord(MetricRecord metricRecord) throws Exception;
 }

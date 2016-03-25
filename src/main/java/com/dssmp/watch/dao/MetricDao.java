@@ -64,6 +64,15 @@ public interface MetricDao {
     public Metric findMetricById(@Param("id") long id);
 
     /**
+     * 根据名称获取指标
+     *
+     * @param name
+     * @return
+     */
+    @Select("select * from watch_metric where name=#{name} limit 1")
+    public Metric findMetricByName(@Param("name") String name);
+
+    /**
      * 获取总行数
      *
      * @return

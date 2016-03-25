@@ -55,4 +55,10 @@ public class NameSpaceServiceImpl implements NameSpaceService {
     public List<NameSpace> getAllNameSpace() {
         return this.nameSpaceDao.findAllNameSpace();
     }
+
+    @Override
+    public NameSpace getNameSpaceByName(String name) {
+        Preconditions.checkNotNull(name);
+        return this.nameSpaceDao.findNameSpaceByName(name);
+    }
 }

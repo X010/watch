@@ -50,4 +50,12 @@ public interface MetricService {
      * @return
      */
     public List<Metric> getAllMetric();
+
+
+    /**
+     * 根据名称获取指标
+     * @param name
+     * @return
+     */
+    public Metric getMetricByName(String name);
 }

@@ -100,7 +100,16 @@ public class MetricController {
             }
             metricRecord.setMvalue(value);
             metricRecord.setMgroup(group);
-            this.metricRecordService.saveMetricRecord(metricRecord);
+
+
+            try {
+
+                this.metricRecordService.saveMetricRecord(metricRecord);
+            } catch (Exception e) {
+                responseMessage.setMessage(e.getMessage());
+                e.printStackTrace();
+            }
+
         }
         return JsonParser.simpleJson(responseMessage);
     }

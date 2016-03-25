@@ -38,4 +38,12 @@ public interface NameSpaceService {
      * @return
      */
     public List<NameSpace> getAllNameSpace();
+
+
+    /**
+     * 根据名称获取命名空间
+     * @param name
+     * @return
+     */
+    public NameSpace getNameSpaceByName(String name);
 }

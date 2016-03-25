@@ -1,8 +1,12 @@
 package com.dssmp.watch.service.impl;
 
 import com.dssmp.watch.dao.MetricRecordDao;
+import com.dssmp.watch.model.Metric;
 import com.dssmp.watch.model.MetricRecord;
+import com.dssmp.watch.model.NameSpace;
 import com.dssmp.watch.service.MetricRecordService;
+import com.dssmp.watch.service.MetricService;
+import com.dssmp.watch.service.NameSpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +33,38 @@ public class MetricRecordServiceImpl implements MetricRecordService {
     @Autowired
     private MetricRecordDao metricRecordDao;
 
-    @Override
-    public void saveMetricRecord(MetricRecord metricRecord) {
-        //补充MetricRecord信息
-        
+    @Autowired
+    private MetricService metricService;
 
+    @Autowired
+    private NameSpaceService nameSpaceService;
+
+
+    @Override
+    public void saveMetricRecord(MetricRecord metricRecord) throws Exception {
+        //补充MetricRecord信息
+        //补充命名空间
+        NameSpace nameSpace = this.nameSpaceService.getNameSpaceByName(metricRecord.getNamespace());
+
+        if (nameSpace == null) {
+            throw new Exception("No Found NameSpace");
+        }
+
+        metricRecord.setNid(nameSpace.getId());
+
+        //补充指标信息
+        Metric metric = this.metricService.getMetricByName(metricRecord.getMetricname());
+        if (metric == null) {
+            throw new Exception("No Found Metric");
+        }
+
+        metricRecord.setMid(metric.getId());
+
+
+        //发送MetricRecord到监控队列里面去
+
+
+        //添加到数据库
+        this.metricRecordDao.insertMetricRecord(metricRecord);
     }
 }

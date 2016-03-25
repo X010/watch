@@ -63,4 +63,10 @@ public class MetricServiceImpl implements MetricService {
     public List<Metric> getAllMetric() {
         return this.metricDao.findMetric();
     }
+
+    @Override
+    public Metric getMetricByName(String name) {
+        Preconditions.checkNotNull(name);
+        return this.metricDao.findMetricByName(name);
+    }
 }
