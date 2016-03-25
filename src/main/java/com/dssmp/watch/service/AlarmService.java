@@ -60,4 +60,11 @@ public interface AlarmService {
      * @param metricRecord
      */
     public void checkMetricRecordAndNoticAlarm(MetricRecord metricRecord);
+
+    /**
+     * 消费MetricRecord
+     *
+     * @param metricRecord
+     */
+    public void consumerMetricRecord(MetricRecord metricRecord);
 }

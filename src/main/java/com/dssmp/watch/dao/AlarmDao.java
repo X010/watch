@@ -60,6 +60,15 @@ public interface AlarmDao {
     @Select("select * from watch_alarm where id=#{id}")
     public Alarm findAlarmById(@Param("id") long id);
 
+    /**
+     * 根据指标ID与命名空间ID
+     *
+     * @param mid
+     * @param nid
+     * @return
+     */
+    @Select("select * from watch_alarm where mid=#{mid} and nid=#{nid}")
+    public List<Alarm> findAlarmByMidAndNid(@Param("mid") long mid, @Param("nid") long nid);
 
     /**
      * 分页获取报警规则
@@ -73,6 +82,7 @@ public interface AlarmDao {
 
     /**
      * 统计行数
+     *
      * @return
      */
     @Select("select count(1) from watch_alarm")

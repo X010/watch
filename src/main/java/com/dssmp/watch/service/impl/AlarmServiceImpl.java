@@ -6,12 +6,19 @@ import com.dssmp.watch.dao.NameSpaceDao;
 import com.dssmp.watch.dao.TemplateDao;
 import com.dssmp.watch.model.*;
 import com.dssmp.watch.service.AlarmService;
+import com.dssmp.watch.service.NoticService;
+import com.dssmp.watch.util.CONST;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,6 +51,25 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Autowired
     private MetricDao metricDao;
+
+    @Autowired
+    private NoticService noticService;
+
+
+    private final static Logger log = LoggerFactory.getLogger(AlarmServiceImpl.class);
+
+    /**
+     * 指标记录队列
+     */
+    private final LinkedBlockingQueue<MetricRecord> metricRecordQueue = new LinkedBlockingQueue<MetricRecord>(1000);
+
+    private ExecutorService executor = Executors.newFixedThreadPool(1);
+
+
+    public AlarmServiceImpl() {
+        //定义一个队列消费LinkBlock
+        this.executor.execute(new ConsumerMetric(this, metricRecordQueue));
+    }
 
     @Override
     public void saveAlarm(String name, double threshold, long template, long namespace, long metric, int complare, String groups) {
@@ -111,7 +137,90 @@ public class AlarmServiceImpl implements AlarmService {
     @Override
     public void checkMetricRecordAndNoticAlarm(MetricRecord metricRecord) {
         Preconditions.checkNotNull(metricRecord);
+        try {
+            this.metricRecordQueue.put(metricRecord);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void consumerMetricRecord(MetricRecord metricRecord) {
+        Preconditions.checkNotNull(metricRecord);
+
+        //读取报警规则
+        List<Alarm> alarms = this.alarmDao.findAlarmByMidAndNid(metricRecord.getMid(), metricRecord.getNid());
+        if (alarms != null) {
+            //有配置的规则进行较比
+            alarms.stream().forEach(alarm -> {
+                boolean isNotic = false;
+                switch (alarm.getComplare()) {
+                    case CONST.GT: //大于
+                        if (metricRecord.getMvalue() > alarm.getThreshold()) {
+                            isNotic = true;
+                        }
+                        break;
+
+                    case CONST.GTE: //大于等于
+                        if (metricRecord.getMvalue() >= alarm.getThreshold()) {
+                            isNotic = true;
+                        }
+                        break;
+
+                    case CONST.EQ://等于
+                        if (metricRecord.getMvalue() == alarm.getThreshold()) {
+                            isNotic = true;
+                        }
+                        break;
+
+                    case CONST.LT://小于
+                        if (metricRecord.getMvalue() < alarm.getThreshold()) {
+                            isNotic = true;
+                        }
+                        break;
+
+                    case CONST.LTE://小于等于
+                        if (metricRecord.getMvalue() <= alarm.getThreshold()) {
+                            isNotic = true;
+                        }
+                        break;
+
+                    default:
+                        log.info("no found complare");
+                }
+
+                if (isNotic) {
+                    //发送报警相关信息
 
 
+
+                }
+            });
+        }
+    }
+
+    /**
+     * 消费Metric
+     */
+    public class ConsumerMetric implements Runnable {
+        private AlarmService alarmService;
+        private LinkedBlockingQueue<MetricRecord> metricRecordQueue;
+        private final Logger logger = LoggerFactory.getLogger(ConsumerMetric.class);
+
+        public ConsumerMetric(AlarmService alarmService, LinkedBlockingQueue<MetricRecord> metricRecordQueue) {
+            this.alarmService = alarmService;
+            this.metricRecordQueue = metricRecordQueue;
+        }
+
+        @Override
+        public void run() {
+            logger.info("start alarm consumer thread...");
+            while (true) {
+                MetricRecord metricRecord = this.metricRecordQueue.poll();
+                if (metricRecord != null) {
+                    this.alarmService.consumerMetricRecord(metricRecord);
+                }
+            }
+        }
     }
 }
