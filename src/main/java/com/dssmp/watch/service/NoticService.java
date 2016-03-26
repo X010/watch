@@ -1,5 +1,7 @@
 package com.dssmp.watch.service;
 
+import com.dssmp.watch.model.Alarm;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -24,6 +26,6 @@ public interface NoticService {
      * @param content
      * @param contacts
      */
-    public void noticContact(String content,String contacts);
+    public void noticContact(String content, String contacts);
 
 }

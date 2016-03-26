@@ -1,5 +1,6 @@
 package com.dssmp.watch.util;
 
+import com.dssmp.watch.model.Alarm;
 import com.dssmp.watch.model.MetricRecord;
 import com.google.common.base.Strings;
 
@@ -22,16 +23,26 @@ import com.google.common.base.Strings;
  */
 public class TemplateUtil {
 
+    public final static String METRICNAME = "#{METRICNAME}"; //指标名
+    public final static String VALUE = "#{VALUE}"; //值
+    public final static String ALARMNAME = "#{ALARMNAME}";//报警规则名称
+
+
     /**
      * 替换相关数据
      *
      * @param content
      * @return
      */
-    public static String replaceTemplate(String content, MetricRecord metricRecord) {
+    public static String replaceTemplate(String content, MetricRecord metricRecord, Alarm alarm) {
         if (!Strings.isNullOrEmpty(content)) {
             //替换数据
+            content = content.replace(METRICNAME, metricRecord.getMetricname());
+            content = content.replace(VALUE, String.valueOf(metricRecord.getMvalue()));
+            content = content.replace(ALARMNAME, alarm.getName());
 
+
+            return content;
         }
         return null;
     }

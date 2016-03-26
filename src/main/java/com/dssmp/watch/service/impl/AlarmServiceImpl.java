@@ -195,7 +195,7 @@ public class AlarmServiceImpl implements AlarmService {
                     //读取模板ID
                     Template template = this.templateDao.findTemplateById(alarm.getId());
                     if (template != null) {
-                        String content = TemplateUtil.replaceTemplate(template.getContent(), metricRecord);
+                        String content = TemplateUtil.replaceTemplate(template.getContent(), metricRecord, alarm);
 
                         //调用通知接口
                         if (!Strings.isNullOrEmpty(content)) {
