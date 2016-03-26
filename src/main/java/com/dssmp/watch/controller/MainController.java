@@ -393,19 +393,28 @@ public class MainController {
         ModelAndView model = new ModelAndView();
         if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
             String title = RequestUtil.getString(request, "title", null);
-            long metric = RequestUtil.getLong(request, "metric", 0);
+            long mid = RequestUtil.getLong(request, "metric", 0);
             int week = RequestUtil.getInt(request, "week", 1);
+            long nid = RequestUtil.getLong(request, "namespace", 0);
             String condition = RequestUtil.getString(request, "condition", null);
-            if (!Strings.isNullOrEmpty(title) && !Strings.isNullOrEmpty(condition) && metric > 0) {
+            if (!Strings.isNullOrEmpty(title) && !Strings.isNullOrEmpty(condition) && mid > 0 && nid > 0) {
                 MetricCondition metricCondition = new MetricCondition();
                 metricCondition.setTitle(title);
-                metricCondition.setMid(metric);
+                metricCondition.setMid(mid);
                 metricCondition.setWeek(week);
                 metricCondition.setCondition(condition);
+                metricCondition.setNid(nid);
 
                 this.conditionService.saveMetricCondition(metricCondition);
             }
         }
+
+        //读取命名空间列表
+        List<NameSpace> nameSpaces = this.nameSpaceService.getAllNameSpace();
+        if (nameSpaces != null) {
+            model.addObject("nameSpaces", nameSpaces);
+        }
+
 
         //读取指标查询条件
         List<MetricCondition> metricConditions = this.conditionService.getMetricCondition();

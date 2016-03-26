@@ -49,6 +49,6 @@ public interface ConditionDao {
      *
      * @param metricCondition
      */
-    @Insert("insert into watch_condition(title,metric,mid,week,condition)values(#{title},#{metric},#{mid},#{week},#{condition})")
+    @Insert("insert into watch_condition(title,metric,mid,week,condition,nid,namespace)values(#{title},#{metric},#{mid},#{week},#{condition},#{nid},#{namespace})")
     public void insertMetricCondition(MetricCondition metricCondition);
 }

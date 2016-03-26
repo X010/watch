@@ -2,8 +2,10 @@ package com.dssmp.watch.service.impl;
 
 import com.dssmp.watch.dao.ConditionDao;
 import com.dssmp.watch.dao.MetricDao;
+import com.dssmp.watch.dao.NameSpaceDao;
 import com.dssmp.watch.model.Metric;
 import com.dssmp.watch.model.MetricCondition;
+import com.dssmp.watch.model.NameSpace;
 import com.dssmp.watch.service.ConditionService;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class ConditionServiceImpl implements ConditionService {
     @Autowired
     private MetricDao metricDao;
 
+    @Autowired
+    private NameSpaceDao nameSpaceDao;
+
 
     @Override
     public List<MetricCondition> getMetricCondition() {
@@ -48,7 +53,10 @@ public class ConditionServiceImpl implements ConditionService {
         Preconditions.checkNotNull(metricCondition);
 
         Metric metric = this.metricDao.findMetricById(metricCondition.getMid());
-        if (metric != null) {
+
+        NameSpace nameSpace = this.nameSpaceDao.findNameSpaceById(metricCondition.getNid());
+        if (metric != null && nameSpace != null) {
+            metricCondition.setNamespace(nameSpace.getName());
             metricCondition.setMetric(metric.getMetricname());
             if (metricCondition.getId() > 0) {
                 //修改

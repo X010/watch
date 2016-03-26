@@ -49,6 +49,33 @@ public class MetricCondition {
      */
     private String condition;
 
+    /**
+     * 命名空间ID
+     */
+    private long nid;
+
+    public long getNid() {
+        return nid;
+    }
+
+    public void setNid(long nid) {
+        this.nid = nid;
+    }
+
+    /**
+     * 命名空间名称
+     */
+    private String namespace;
+
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
     public long getMid() {
         return mid;
     }
