@@ -41,7 +41,6 @@ public class TemplateUtil {
             content = content.replace(VALUE, String.valueOf(metricRecord.getMvalue()));
             content = content.replace(ALARMNAME, alarm.getName());
 
-
             return content;
         }
         return null;

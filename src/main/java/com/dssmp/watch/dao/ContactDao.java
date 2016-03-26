@@ -5,6 +5,7 @@ import com.dssmp.watch.model.ContactGroup;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
@@ -53,6 +54,25 @@ public interface ContactDao {
      */
     @Select("select * from watch_contact limit #{start},#{limit}")
     public List<Contact> findContactByContact(@Param("start") int start, @Param("limit") int limit);
+
+    /**
+     * 读取批量联系人组
+     *
+     * @param ids
+     * @return
+     */
+    @SelectProvider(type = SQLExtend.class, method = "getGroupsId")
+    public List<ContactGroup> findContactGroupByIds(@Param("ids") List<String> ids);
+
+
+    /**
+     * 读取批量联系人
+     *
+     * @param ids
+     * @return
+     */
+    @SelectProvider(type = SQLExtend.class, method = "getContactsId")
+    public List<Contact> findContactByIds(@Param("ids") List<String> ids);
 
 
     /**
