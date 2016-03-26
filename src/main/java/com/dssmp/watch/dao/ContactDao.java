@@ -99,4 +99,21 @@ public interface ContactDao {
      */
     @Select("select * from watch_contact")
     public List<Contact> findAllContact();
+
+
+    /**
+     * 删除联系人
+     *
+     * @param id
+     */
+    @Select("select * from watch_contact where id=#{id}")
+    public void deleteContact(@Param("id") long id);
+
+    /**
+     * 删除联系人组
+     *
+     * @param id
+     */
+    @Select("select * from watch_contact_group where id=#{id}")
+    public void deleteContactGroup(@Param("id") long id);
 }

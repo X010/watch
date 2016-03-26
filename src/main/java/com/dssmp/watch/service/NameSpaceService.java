@@ -42,8 +42,16 @@ public interface NameSpaceService {
 
     /**
      * 根据名称获取命名空间
+     *
      * @param name
      * @return
      */
     public NameSpace getNameSpaceByName(String name);
+
+    /**
+     * 删除命名空间
+     *
+     * @param id
+     */
+    public boolean deleteNameSpaceById(long id);
 }

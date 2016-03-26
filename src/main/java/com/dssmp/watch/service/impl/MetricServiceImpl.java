@@ -1,6 +1,7 @@
 package com.dssmp.watch.service.impl;
 
 import com.dssmp.watch.dao.MetricDao;
+import com.dssmp.watch.dao.MetricRecordDao;
 import com.dssmp.watch.model.Metric;
 import com.dssmp.watch.service.MetricService;
 import com.google.common.base.Preconditions;
@@ -31,6 +32,9 @@ public class MetricServiceImpl implements MetricService {
 
     @Autowired
     private MetricDao metricDao;
+
+    @Autowired
+    private MetricRecordDao metricRecordDao;
 
     @Override
     public void saveMetric(Metric metric) {
@@ -68,5 +72,15 @@ public class MetricServiceImpl implements MetricService {
     public Metric getMetricByName(String name) {
         Preconditions.checkNotNull(name);
         return this.metricDao.findMetricByName(name);
+    }
+
+    @Override
+    public boolean deleteMetric(long id) {
+        Preconditions.checkArgument(id > 0);
+        int midTotal = this.metricRecordDao.countMetricRecord(id);
+        if (midTotal == 0) {
+            this.metricDao.deleteMetric(id);
+        }
+        return false;
     }
 }

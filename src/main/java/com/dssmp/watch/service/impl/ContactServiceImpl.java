@@ -80,4 +80,18 @@ public class ContactServiceImpl implements ContactService {
         }
         return totalRows / size + 1;
     }
+
+    @Override
+    public boolean deleteContact(long id) {
+        Preconditions.checkArgument(id > 0);
+        this.contactDao.deleteContact(id);
+        return true;
+    }
+
+    @Override
+    public boolean deleteContactGroup(long id) {
+        Preconditions.checkArgument(id > 0);
+        this.contactDao.deleteContactGroup(id);
+        return true;
+    }
 }

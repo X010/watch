@@ -2,6 +2,8 @@ package com.dssmp.watch.dao;
 
 import com.dssmp.watch.model.MetricRecord;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,4 +34,19 @@ public interface MetricRecordDao {
     public void insertMetricRecord(MetricRecord metricRecord);
 
 
+    /**
+     * 根据命名空间删除MetricRecord
+     *
+     * @param nid
+     */
+    @Select("delete from watch_metricrecord where nid=#{nid}")
+    public void deleteMetricRecord(@Param("nid") long nid);
+
+    /**
+     * 统计指标MetricRecord个数
+     * @param mid
+     * @return
+     */
+    @Select("select count(1) from watch_metricrecord where mid=#{mid}")
+    public int countMetricRecord(@Param("mid")long mid);
 }

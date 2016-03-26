@@ -53,5 +53,5 @@ public interface TemplateService {
      *
      * @param id
      */
-    public void deleteTemplate(long id);
+    public boolean deleteTemplate(long id);
 }

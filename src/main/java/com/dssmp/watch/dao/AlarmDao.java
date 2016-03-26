@@ -61,6 +61,24 @@ public interface AlarmDao {
     public Alarm findAlarmById(@Param("id") long id);
 
     /**
+     * 根据NID 统计是否存在
+     *
+     * @param nid
+     * @return
+     */
+    @Select("select count(1) from watch_alarm where  nid=#{nid}")
+    public int countAlarmById(@Param("nid") long nid);
+
+    /**
+     * 根据TID统计否存存在
+     *
+     * @param tid
+     * @return
+     */
+    @Select("select count(1) from watch_alarm where tid=#{tid}")
+    public int countAlarmByTid(@Param("tid") long tid);
+
+    /**
      * 根据指标ID与命名空间ID
      *
      * @param mid

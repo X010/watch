@@ -1,5 +1,7 @@
 package com.dssmp.watch.service.impl;
 
+import com.dssmp.watch.dao.AlarmDao;
+import com.dssmp.watch.dao.MetricRecordDao;
 import com.dssmp.watch.dao.NameSpaceDao;
 import com.dssmp.watch.model.NameSpace;
 import com.dssmp.watch.service.NameSpaceService;
@@ -33,6 +35,12 @@ public class NameSpaceServiceImpl implements NameSpaceService {
     @Autowired
     private NameSpaceDao nameSpaceDao;
 
+    @Autowired
+    private MetricRecordDao metricRecordDao;
+
+    @Autowired
+    private AlarmDao alarmDao;
+
     @Override
     public void saveNameSpace(NameSpace nameSpace) {
         Preconditions.checkNotNull(nameSpace);
@@ -60,5 +68,19 @@ public class NameSpaceServiceImpl implements NameSpaceService {
     public NameSpace getNameSpaceByName(String name) {
         Preconditions.checkNotNull(name);
         return this.nameSpaceDao.findNameSpaceByName(name);
+    }
+
+    @Override
+    public boolean deleteNameSpaceById(long id) {
+        Preconditions.checkArgument(id > 0);
+        //校验NameSpace是否可以删除
+        int nidTotal = this.alarmDao.countAlarmById(id);
+        if (nidTotal == 0) {
+            //如果为0则可以删除数据
+            this.metricRecordDao.deleteMetricRecord(id);
+            this.nameSpaceDao.deleteNameSpace(id);
+            return true;
+        }
+        return false;
     }
 }

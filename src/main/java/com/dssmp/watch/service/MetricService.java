@@ -58,4 +58,11 @@ public interface MetricService {
      * @return
      */
     public Metric getMetricByName(String name);
+
+    /**
+     * 删除Metric
+     * @param id
+     * @return
+     */
+    public boolean deleteMetric(long id);
 }

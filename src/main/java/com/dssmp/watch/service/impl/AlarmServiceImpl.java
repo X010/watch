@@ -213,6 +213,13 @@ public class AlarmServiceImpl implements AlarmService {
         }
     }
 
+    @Override
+    public boolean deleteAlarm(long id) {
+        Preconditions.checkArgument(id > 0);
+        this.alarmDao.deleteAlarm(id);
+        return true;
+    }
+
     /**
      * 消费Metric
      */

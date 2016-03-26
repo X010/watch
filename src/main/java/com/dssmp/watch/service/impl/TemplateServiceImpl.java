@@ -1,5 +1,6 @@
 package com.dssmp.watch.service.impl;
 
+import com.dssmp.watch.dao.AlarmDao;
 import com.dssmp.watch.dao.TemplateDao;
 import com.dssmp.watch.model.Template;
 import com.dssmp.watch.service.TemplateService;
@@ -32,6 +33,9 @@ public class TemplateServiceImpl implements TemplateService {
     @Autowired
     private TemplateDao templateDao;
 
+    @Autowired
+    private AlarmDao alarmDao;
+
 
     @Override
     public void saveTemplate(Template template) {
@@ -48,7 +52,7 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Template getTemplateById(long id) {
         Preconditions.checkArgument(id > 0);
-        return null;
+        return this.templateDao.findTemplateById(id);
     }
 
     @Override
@@ -57,8 +61,14 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public void deleteTemplate(long id) {
+    public boolean deleteTemplate(long id) {
         Preconditions.checkArgument(id > 0);
-
+        //删除模板
+        int tidTotal = this.alarmDao.countAlarmByTid(id);
+        if (tidTotal == 0) {
+            this.templateDao.deleteTemplate(id);
+            return true;
+        }
+        return false;
     }
 }

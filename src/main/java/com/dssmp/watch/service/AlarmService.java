@@ -67,4 +67,11 @@ public interface AlarmService {
      * @param metricRecord
      */
     public void consumerMetricRecord(MetricRecord metricRecord);
+
+    /**
+     * 删除报警
+     * @param id
+     * @return
+     */
+    public boolean deleteAlarm(long id);
 }

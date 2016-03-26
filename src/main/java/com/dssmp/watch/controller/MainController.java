@@ -140,6 +140,24 @@ public class MainController {
     }
 
     /**
+     * 删除模板
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "template_d.action")
+    public ModelAndView template_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            this.templateService.deleteTemplate(id);
+        }
+        model.setViewName("redirect:template_m.action");
+        return model;
+    }
+
+    /**
      * 报警管理
      *
      * @param request
@@ -203,6 +221,24 @@ public class MainController {
     }
 
     /**
+     * 删除报警
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "alarm_d.action")
+    public ModelAndView alarm_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            this.alarmService.deleteAlarm(id);
+        }
+        model.setViewName("redirect:alarm_m.action");
+        return model;
+    }
+
+    /**
      * 命名空间管理
      *
      * @param request
@@ -226,6 +262,24 @@ public class MainController {
             model.addObject("namespaces", nameSpaceList);
         }
         model.setViewName("namespace_m");
+        return model;
+    }
+
+    /**
+     * 删除命名空间
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "namespace_d.action")
+    public ModelAndView namespace_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            boolean res = this.nameSpaceService.deleteNameSpaceById(id);
+        }
+        model.setViewName("redirect:namespace_m.action");
         return model;
     }
 
@@ -258,6 +312,24 @@ public class MainController {
     }
 
     /**
+     * 删除用户
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "user_d.action")
+    public ModelAndView user_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            this.userService.deleteUserById(id);
+        }
+        model.setViewName("redirect:user_m.action");
+        return model;
+    }
+
+    /**
      * 指标管理
      *
      * @param request
@@ -285,6 +357,24 @@ public class MainController {
         }
         model.addObject("pageNum", pageNum);
         model.setViewName("metric_m");
+        return model;
+    }
+
+    /**
+     * 删除指标
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "metric_d.action")
+    public ModelAndView metric_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            this.metricService.deleteMetric(id);
+        }
+        model.setViewName("redirect:metric_m.action");
         return model;
     }
 
@@ -341,6 +431,24 @@ public class MainController {
     }
 
     /**
+     * 删除联系人
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "contact_d.action")
+    public ModelAndView contact_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            this.contactService.deleteContact(id);
+        }
+        model.setViewName("redirect:contact_m.action");
+        return model;
+    }
+
+    /**
      * 联系人组管理
      *
      * @param request
@@ -377,6 +485,24 @@ public class MainController {
         }
 
         model.setViewName("contact_group_m");
+        return model;
+    }
+
+    /**
+     * 删除联系人组管理
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "contact_group_d.action")
+    public ModelAndView contact_group_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            this.contactService.deleteContactGroup(id);
+        }
+        model.setViewName("redirect:contact_group_m.action");
         return model;
     }
 

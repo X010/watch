@@ -71,4 +71,18 @@ public interface ContactService {
      * @return
      */
     public int getContactPage(int size);
+
+    /**
+     * 删除联系人
+     * @param id
+     * @return
+     */
+    public boolean deleteContact(long id);
+
+    /**
+     * 删除联系人组
+     * @param id
+     * @return
+     */
+    public boolean deleteContactGroup(long id);
 }
