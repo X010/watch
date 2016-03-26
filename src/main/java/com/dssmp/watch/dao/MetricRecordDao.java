@@ -29,8 +29,8 @@ public interface MetricRecordDao {
      *
      * @param metricRecord
      */
-    @Insert("insert into watch_metricrecord(nid,namespace,mid,metricname,starttime,endtime,mvalue)" +
-            "values(#{nid},#{namespace},#{mid},#{metricname},#{starttime},#{endtime},#{mvalue})")
+    @Insert("insert into watch_metricrecord(nid,namespace,mid,metricname,starttime,endtime,mvalue,mgroup)" +
+            "values(#{nid},#{namespace},#{mid},#{metricname},#{starttime},#{endtime},#{mvalue},#{mgroup})")
     public void insertMetricRecord(MetricRecord metricRecord);
 
 

@@ -21,7 +21,7 @@ public class SshInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
         if (!Strings.isNullOrEmpty(uri)) {
-            if (uri.indexOf("index") >= 0 || uri.indexOf("login") >= 0 || uri.indexOf("/api") >= 0) {
+            if (uri.indexOf("index") >= 0 || uri.indexOf("login") >= 0 || uri.indexOf("/api") >= 0||uri.indexOf("/metric") >= 0) {
                 return true;
             } else {
                 Object user = request.getSession().getAttribute(CONST.LOGIN_FLAG);

@@ -26,4 +26,9 @@ public class TemplateUnitTest {
         String test = "1,2,3,4,5,";
         System.out.println(test.substring(0, test.length() - 1));
     }
+
+    @Test
+    public void printTimestamp() {
+        System.out.println(System.currentTimeMillis());
+    }
 }

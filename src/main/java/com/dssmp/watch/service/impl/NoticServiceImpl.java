@@ -72,7 +72,7 @@ public class NoticServiceImpl implements NoticService {
                     if (contactList != null && contactList.size() > 0) {
                         //发送信息
                         LOGGER.info("Send Notic Message To Contact Size " + contactList.size());
-
+                        LOGGER.info("Send Notic Message To Contact Content " + content);
 
                     }
                 }

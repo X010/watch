@@ -69,7 +69,7 @@ public interface MetricDao {
      * @param name
      * @return
      */
-    @Select("select * from watch_metric where name=#{name} limit 1")
+    @Select("select * from watch_metric where metricname=#{name} limit 1")
     public Metric findMetricByName(@Param("name") String name);
 
     /**

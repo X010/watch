@@ -193,7 +193,7 @@ public class AlarmServiceImpl implements AlarmService {
                 if (isNotic) {
                     //发送报警相关信息
                     //读取模板ID
-                    Template template = this.templateDao.findTemplateById(alarm.getId());
+                    Template template = this.templateDao.findTemplateById(alarm.getTid());
                     if (template != null) {
                         String content = TemplateUtil.replaceTemplate(template.getContent(), metricRecord, alarm);
 
