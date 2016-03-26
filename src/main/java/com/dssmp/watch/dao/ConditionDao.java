@@ -1,6 +1,7 @@
 package com.dssmp.watch.dao;
 
 import com.dssmp.watch.model.MetricCondition;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -49,6 +50,13 @@ public interface ConditionDao {
      *
      * @param metricCondition
      */
-    @Insert("insert into watch_condition(title,metric,mid,week,condition,nid,namespace)values(#{title},#{metric},#{mid},#{week},#{condition},#{nid},#{namespace})")
+    @Insert("insert into watch_condition(title,metric,mid,week,`condition`,nid,namespace)values(#{title},#{metric},#{mid},#{week},#{condition},#{nid},#{namespace})")
     public void insertMetricCondition(MetricCondition metricCondition);
+
+    /**
+     * 删除查询条件
+     * @param id
+     */
+    @Delete("delete from watch_condition where id=#{id}")
+    public void deleteMetricCondition(@Param("id") long id);
 }

@@ -57,6 +57,24 @@
                                 <th>定义条件</th>
                                 <th>操作</th>
                             </tr>
+                            <#if conditions??>
+                                <#list conditions  as item>
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.title}</td>
+                                        <td>${item.metric}</td>
+                                        <td>
+                                            <#if (item.week==1)>分</#if>
+                                            <#if (item.week==2)>小时</#if>
+                                            <#if (item.week==3)>天</#if>
+                                            <#if (item.week==4)>周</#if>
+                                            <#if (item.week==5)>月</#if>
+                                        </td>
+                                        <td>${item.condition}</td>
+                                        <td><a class="btn btn-danger btn-xs" href="metric_s_d.action?id=#item.id{}">delete</a></td>
+                                    </tr>
+                                </#list>
+                            </#if>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -73,7 +91,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form method="post" action="user_m.action" class="form-horizontal">
+                    <form method="post" action="metric_s.action" class="form-horizontal">
 
                         <div class="box-body">
                             <div class="form-group">

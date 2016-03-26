@@ -67,4 +67,10 @@ public class ConditionServiceImpl implements ConditionService {
             }
         }
     }
+
+    @Override
+    public void deleteMetricCondition(long id) {
+        Preconditions.checkArgument(id > 0);
+        this.conditionDao.deleteMetricCondition(id);
+    }
 }

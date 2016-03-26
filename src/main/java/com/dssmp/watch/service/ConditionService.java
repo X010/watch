@@ -36,4 +36,12 @@ public interface ConditionService {
      * @param metricCondition
      */
     public void saveMetricCondition(MetricCondition metricCondition);
+
+
+    /**
+     * 根据ID删除条件
+     *
+     * @param id
+     */
+    public void deleteMetricCondition(long id);
 }

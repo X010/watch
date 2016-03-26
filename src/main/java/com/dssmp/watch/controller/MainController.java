@@ -433,6 +433,24 @@ public class MainController {
     }
 
     /**
+     * 删除查询查询
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "metric_s_d.action")
+    public ModelAndView metric_s_d(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+
+        }
+        model.setViewName("redirect:metric_s.action");
+        return model;
+    }
+
+    /**
      * 联系人管理
      *
      * @param request
