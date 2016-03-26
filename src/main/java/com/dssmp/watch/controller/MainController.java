@@ -54,6 +54,9 @@ public class MainController {
     @Autowired
     private ContactService contactService;
 
+    @Autowired
+    private ConditionService conditionService;
+
     /**
      * 登陆
      *
@@ -388,6 +391,33 @@ public class MainController {
     @RequestMapping(value = "metric_s.action")
     public ModelAndView metric_s(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        if (CONST.HTTP_METHOD_POST.equals(request.getMethod())) {
+            String title = RequestUtil.getString(request, "title", null);
+            long metric = RequestUtil.getLong(request, "metric", 0);
+            int week = RequestUtil.getInt(request, "week", 1);
+            String condition = RequestUtil.getString(request, "condition", null);
+            if (!Strings.isNullOrEmpty(title) && !Strings.isNullOrEmpty(condition) && metric > 0) {
+                MetricCondition metricCondition = new MetricCondition();
+                metricCondition.setTitle(title);
+                metricCondition.setMid(metric);
+                metricCondition.setWeek(week);
+                metricCondition.setCondition(condition);
+
+                this.conditionService.saveMetricCondition(metricCondition);
+            }
+        }
+
+        //读取指标查询条件
+        List<MetricCondition> metricConditions = this.conditionService.getMetricCondition();
+        if (metricConditions != null) {
+            model.addObject("conditions", metricConditions);
+        }
+
+        //读取指标列表
+        List<Metric> metrics = this.metricService.getAllMetric();
+        if (metrics != null) {
+            model.addObject("metrics", metrics);
+        }
 
         model.setViewName("metric_s");
         return model;

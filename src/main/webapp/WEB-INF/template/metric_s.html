@@ -20,7 +20,7 @@
 <div class="content">
     <section class="content-header">
         <h1>
-            指标查询
+            定义指标查询
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>指标</a></li>
@@ -49,10 +49,12 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <tr>
-                                <th>菜单名称</th>
-                                <th>菜单级别</th>
+                                <th>ID</th>
+                                <th>查询标题</th>
                                 <!--<th>触发器名</th>-->
-                                <th>菜单地址</th>
+                                <th>查询批标</th>
+                                <th>周期</th>
+                                <th>定义条件</th>
                                 <th>操作</th>
                             </tr>
                         </table>
@@ -67,7 +69,7 @@
                 <!-- Horizontal Form -->
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add User<span style="font-size: 12px;">  *用户名和密码建议使用英文字符,中文存在乱码情况</span></h3>
+                        <h3 class="box-title">Add Metric Search<span style="font-size: 12px;">  *</span></h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -75,16 +77,39 @@
 
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="username" class="col-sm-2 control-label">用户名</label>
+                                <label for="title" class="col-sm-2 control-label">名称</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="用户名">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="col-sm-2 control-label">密码</label>
-
+                                <label for="metric" class="col-sm-2 control-label">指标名</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="密码">
+                                    <select name="metric" id="metric" class="form-control">
+                                        <#if metrics??>
+                                            <#list metrics as item>
+                                                <option value="${item.id}">${item.metricname}</option>
+                                            </#list>
+                                        </#if>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="week" class="col-sm-2 control-label">周期</label>
+                                <div class="col-sm-10">
+                                    <select name="week" id="week" class="form-control">
+                                        <option value="1" selected>分钟</option>
+                                        <option value="2">小时</option>
+                                        <option value="3">天</option>
+                                        <option value="4">周</option>
+                                        <option value="5">月</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="condition" class="col-sm-2 control-label">条件</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="condition" name="condition" placeholder="条件">
                                 </div>
                             </div>
                             <div id="params">
