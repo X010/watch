@@ -444,7 +444,7 @@ public class MainController {
         ModelAndView model = new ModelAndView();
         long id = RequestUtil.getLong(request, "id", 0);
         if (id > 0) {
-
+            this.conditionService.deleteMetricCondition(id);
         }
         model.setViewName("redirect:metric_s.action");
         return model;
