@@ -3,6 +3,7 @@ package com.dssmp.watch.controller;
 import com.dssmp.watch.model.*;
 import com.dssmp.watch.service.*;
 import com.dssmp.watch.util.CONST;
+import com.dssmp.watch.util.JsonParser;
 import com.dssmp.watch.util.RequestUtil;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
@@ -56,6 +57,9 @@ public class MainController {
 
     @Autowired
     private ConditionService conditionService;
+
+    @Autowired
+    private MetricRecordService metricRecordService;
 
     /**
      * 登陆
@@ -465,13 +469,23 @@ public class MainController {
     @RequestMapping(value = "metric_s_q.action")
     public ModelAndView metric_s_q(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        String res = "[]";
         long id = RequestUtil.getLong(request, "id", 0);
         if (id > 0) {
             MetricCondition metricCondition = this.conditionService.getMetricConditionById(id);
             if (metricCondition != null) {
                 model.addObject("metric_q", metricCondition);
             }
+
+            //生成数据
+            ChartData chartData = this.metricRecordService.countMetricRecord(metricCondition);
+
+            if (chartData != null) {
+                res = JsonParser.simpleJson(chartData);
+            }
+
         }
+        model.addObject("res", res);
         model.setViewName("metric_s_q");
         return model;
     }

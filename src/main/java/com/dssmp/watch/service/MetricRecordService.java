@@ -1,5 +1,7 @@
 package com.dssmp.watch.service;
 
+import com.dssmp.watch.model.ChartData;
+import com.dssmp.watch.model.MetricCondition;
 import com.dssmp.watch.model.MetricRecord;
 
 /**
@@ -27,4 +29,12 @@ public interface MetricRecordService {
      * @param metricRecord
      */
     public void saveMetricRecord(MetricRecord metricRecord) throws Exception;
+
+    /**
+     * 根据条件信息统计数据
+     *
+     * @param metricCondition
+     * @return
+     */
+    public ChartData countMetricRecord(MetricCondition metricCondition);
 }

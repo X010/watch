@@ -1,15 +1,16 @@
 package com.dssmp.watch.service.impl;
 
 import com.dssmp.watch.dao.MetricRecordDao;
-import com.dssmp.watch.model.Metric;
-import com.dssmp.watch.model.MetricRecord;
-import com.dssmp.watch.model.NameSpace;
+import com.dssmp.watch.model.*;
 import com.dssmp.watch.service.AlarmService;
 import com.dssmp.watch.service.MetricRecordService;
 import com.dssmp.watch.service.MetricService;
 import com.dssmp.watch.service.NameSpaceService;
+import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -71,5 +72,33 @@ public class MetricRecordServiceImpl implements MetricRecordService {
 
         //添加到数据库
         this.metricRecordDao.insertMetricRecord(metricRecord);
+    }
+
+    @Override
+    public ChartData countMetricRecord(MetricCondition metricCondition) {
+        Preconditions.checkNotNull(metricCondition);
+        //根据MetricCondition转换查询条件
+        Date endTime = new Date();
+        Date startTime = new Date(endTime.getTime() - 60 * 1000);
+        switch (metricCondition.getWeek()) {
+            case 1:
+                startTime = new Date(endTime.getTime() - 60 * 1000);
+                break;
+            case 2:
+                startTime = new Date(endTime.getTime() - 60 * 60 * 1000);
+                break;
+            case 3:
+                startTime = new Date(endTime.getTime() - 24 * 60 * 60 * 1000);
+                break;
+            case 4:
+                startTime = new Date(endTime.getTime() - 7 * 24 * 60 * 60 * 1000);
+                break;
+            case 5:
+                startTime = new Date(endTime.getTime() - 30 * 24 * 60 * 60 * 1000);
+                break;
+        }
+        String condition = "%" + metricCondition.getCondition() + "%";
+        
+        return null;
     }
 }
