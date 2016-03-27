@@ -30,6 +30,15 @@ public interface ConditionService {
      */
     public List<MetricCondition> getMetricCondition();
 
+
+    /**
+     * 根据ID查询MetricCondition
+     *
+     * @param id
+     * @return
+     */
+    public MetricCondition getMetricConditionById(long id);
+
     /**
      * 保存指标条件
      *

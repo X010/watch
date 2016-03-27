@@ -208,7 +208,72 @@ desired effect
         <!--tab动态添加-->
         <div id="mainTabs" style="background:#ffffff;" class="maintabs easyui-tabs">
             <div class="box" title="控制台">
+                <div class="content">
+                    <section class="content-header">
+                        <h1>
+                            指标查询
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i>指标</a></li>
+                            <li class="active">查询</li>
+                        </ol>
+                    </section>
 
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">List Table</h3>
+
+                                        <div class="box-tools">
+                                            <div class="input-group input-group-sm" style="width: 150px;">
+
+                                                <div class="input-group-btn">
+                                                    <button type="button" onclick="window.location.reload();"  class="btn btn-default"><i class="fa fa-refresh"></i>刷新</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>查询标题</th>
+                                                <!--<th>触发器名</th>-->
+                                                <th>查询批标</th>
+                                                <th>周期</th>
+                                                <th>定义条件</th>
+                                            </tr>
+                                            <#if conditions??>
+                                                <#list conditions  as item>
+
+                                                    <tr>
+                                                        <td>${item.id}</td>
+                                                        <td>   <a href="javascript:addTab('${item.title}','metric_s_q.action?id=${item.id}')">${item.title} </a></td>
+                                                        <td>${item.metric}</td>
+                                                        <td>
+                                                            <#if (item.week==1)>分</#if>
+                                                            <#if (item.week==2)>小时</#if>
+                                                            <#if (item.week==3)>天</#if>
+                                                            <#if (item.week==4)>周</#if>
+                                                            <#if (item.week==5)>月</#if>
+                                                        </td>
+                                                        <td>${item.condition}</td>
+                                                    </tr>
+
+                                                </#list>
+                                            </#if>
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>

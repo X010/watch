@@ -49,6 +49,12 @@ public class ConditionServiceImpl implements ConditionService {
     }
 
     @Override
+    public MetricCondition getMetricConditionById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.conditionDao.findMetricConditionById(id);
+    }
+
+    @Override
     public void saveMetricCondition(MetricCondition metricCondition) {
         Preconditions.checkNotNull(metricCondition);
 

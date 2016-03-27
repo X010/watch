@@ -108,6 +108,11 @@ public class MainController {
     @RequestMapping(value = "mainframe.action")
     public ModelAndView mainFrame(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        //读取指标查询条件
+        List<MetricCondition> metricConditions = this.conditionService.getMetricCondition();
+        if (metricConditions != null) {
+            model.addObject("conditions", metricConditions);
+        }
 
         model.setViewName("mainframe");
         return model;
@@ -447,6 +452,27 @@ public class MainController {
             this.conditionService.deleteMetricCondition(id);
         }
         model.setViewName("redirect:metric_s.action");
+        return model;
+    }
+
+    /**
+     * 指标查询
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "metric_s_q.action")
+    public ModelAndView metric_s_q(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        long id = RequestUtil.getLong(request, "id", 0);
+        if (id > 0) {
+            MetricCondition metricCondition = this.conditionService.getMetricConditionById(id);
+            if (metricCondition != null) {
+                model.addObject("metric_q", metricCondition);
+            }
+        }
+        model.setViewName("metric_s_q");
         return model;
     }
 
