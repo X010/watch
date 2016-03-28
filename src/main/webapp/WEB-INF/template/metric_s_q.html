@@ -99,22 +99,7 @@
 <script language="JavaScript">
     $(function () {
 
-        var areaChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Electronics",
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: "Digital Goods",
-                    fillColor: "#3b8bba",
-                    strokeColor: "#3b8bba",
-                    pointColor: "#3b8bba",
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-            ]
-        };
+        var areaChartData = ${res};
 
         var areaChartOptions = {
             //Boolean - If we should show the scale at all

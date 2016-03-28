@@ -6,12 +6,15 @@ import com.dssmp.watch.service.AlarmService;
 import com.dssmp.watch.service.MetricRecordService;
 import com.dssmp.watch.service.MetricService;
 import com.dssmp.watch.service.NameSpaceService;
+import com.dssmp.watch.util.ColorUtil;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -111,16 +114,68 @@ public class MetricRecordServiceImpl implements MetricRecordService {
         if (!Strings.isNullOrEmpty(condition)) {
             total = this.metricRecordDao.countMetricRecordLike(startTime, endTime, metricCondition.getMid(), metricCondition.getNid(), condition);
         } else {
-            total = this.metricRecordDao.countMetricRecord(startTime, endTime, metricCondition.getMid(), metricCondition.getNid());
+            total = this.metricRecordDao.countMetricRecordRow(startTime, endTime, metricCondition.getMid(), metricCondition.getNid());
         }
 
         if (total > 20000) {
             throw new Exception("single Record too much");
         }
 
-        //处理当类
+        List<MetricRecord> metricRecords = null;
 
+        if (!Strings.isNullOrEmpty(condition)) {
+            metricRecords = this.metricRecordDao.findCountMetricRecordLike(startTime, endTime, metricCondition.getMid(), metricCondition.getNid(), condition);
+        } else {
+            metricRecords = this.metricRecordDao.findCountMetricRecord(startTime, endTime, metricCondition.getMid(), metricCondition.getNid());
+        }
 
+        //处理当类,读取数据
+        if (metricRecords != null) {
+            Map<String, List<MetricRecord>> groups = metricRecords.stream().collect(Collectors.groupingBy(MetricRecord::getMgroup));
+            if (groups != null) {
+                //转换成ChartData数据
+                return this.getCharData(groups);
+            }
+        }
         return null;
+    }
+
+
+    /**
+     * 将MetricRecords
+     *
+     * @param metricRecords
+     * @return
+     */
+    public ChartData getCharData(Map<String, List<MetricRecord>> metricRecords) {
+        ChartData chartData = new ChartData();
+        chartData.setDatasets(new ArrayList<>());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd HH:mm:ss");
+        Map<String, String> lables = new HashMap<>();
+        Set<String> keys = metricRecords.keySet();
+        int i = 0;
+        for (String key : keys) {
+            ChartData.DataSet dataSet = new ChartData.DataSet();
+            dataSet.setLabel(key);
+            List<Double> doubles = new ArrayList<>();
+            dataSet.setData(doubles);
+            dataSet.setFillColor(ColorUtil.Color(i));
+            dataSet.setPointColor(ColorUtil.Color(i));
+            dataSet.setStrokeColor(ColorUtil.Color(i));
+            List<MetricRecord> values = metricRecords.get(key);
+            if (values != null) {
+                for (MetricRecord metricRecord : values) {
+                    String label = dateFormat.format(metricRecord.getStarttime());
+                    if (lables.get(label) == null) {
+                        lables.put(label, label);
+                    }
+                    doubles.add(metricRecord.getMvalue());
+                }
+            }
+            chartData.getDatasets().add(dataSet);
+            i++;
+        }
+        chartData.setLabels(new ArrayList<>(lables.values()));
+        return chartData;
     }
 }

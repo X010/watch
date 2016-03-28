@@ -29,36 +29,7 @@ public class ChartData {
     private List<DataSet> datasets;
 
 
-    private String fillColor;
 
-
-    private String strokeColor;
-
-    private String pointColor;
-
-    public String getFillColor() {
-        return fillColor;
-    }
-
-    public void setFillColor(String fillColor) {
-        this.fillColor = fillColor;
-    }
-
-    public String getStrokeColor() {
-        return strokeColor;
-    }
-
-    public void setStrokeColor(String strokeColor) {
-        this.strokeColor = strokeColor;
-    }
-
-    public String getPointColor() {
-        return pointColor;
-    }
-
-    public void setPointColor(String pointColor) {
-        this.pointColor = pointColor;
-    }
 
     public List<String> getLabels() {
         return labels;
@@ -89,6 +60,37 @@ public class ChartData {
          * 数据
          */
         private List<Double> data;
+
+        private String fillColor;
+
+
+        private String strokeColor;
+
+        private String pointColor;
+
+        public String getFillColor() {
+            return fillColor;
+        }
+
+        public void setFillColor(String fillColor) {
+            this.fillColor = fillColor;
+        }
+
+        public String getStrokeColor() {
+            return strokeColor;
+        }
+
+        public void setStrokeColor(String strokeColor) {
+            this.strokeColor = strokeColor;
+        }
+
+        public String getPointColor() {
+            return pointColor;
+        }
+
+        public void setPointColor(String pointColor) {
+            this.pointColor = pointColor;
+        }
 
 
         public String getLabel() {
