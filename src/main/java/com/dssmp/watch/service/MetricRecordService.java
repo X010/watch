@@ -36,5 +36,5 @@ public interface MetricRecordService {
      * @param metricCondition
      * @return
      */
-    public ChartData countMetricRecord(MetricCondition metricCondition);
+    public ChartData countMetricRecord(MetricCondition metricCondition) throws Exception;
 }

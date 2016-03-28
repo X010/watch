@@ -7,6 +7,7 @@ import com.dssmp.watch.service.MetricRecordService;
 import com.dssmp.watch.service.MetricService;
 import com.dssmp.watch.service.NameSpaceService;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,7 +76,7 @@ public class MetricRecordServiceImpl implements MetricRecordService {
     }
 
     @Override
-    public ChartData countMetricRecord(MetricCondition metricCondition) {
+    public ChartData countMetricRecord(MetricCondition metricCondition) throws Exception {
         Preconditions.checkNotNull(metricCondition);
         //根据MetricCondition转换查询条件
         Date endTime = new Date();
@@ -97,8 +98,29 @@ public class MetricRecordServiceImpl implements MetricRecordService {
                 startTime = new Date(endTime.getTime() - 30 * 24 * 60 * 60 * 1000);
                 break;
         }
-        String condition = "%" + metricCondition.getCondition() + "%";
-        
+
+        //读取数据的规则是根据时间的多少.确定Group By 的粒度
+        //先统计条.然后做分断式处理
+        String condition = null;
+        if (!Strings.isNullOrEmpty(metricCondition.getCondition())) {
+            condition = "%" + metricCondition.getCondition() + "%";
+        }
+
+        //统计记录条数
+        int total = 0;
+        if (!Strings.isNullOrEmpty(condition)) {
+            total = this.metricRecordDao.countMetricRecordLike(startTime, endTime, metricCondition.getMid(), metricCondition.getNid(), condition);
+        } else {
+            total = this.metricRecordDao.countMetricRecord(startTime, endTime, metricCondition.getMid(), metricCondition.getNid());
+        }
+
+        if (total > 20000) {
+            throw new Exception("single Record too much");
+        }
+
+        //处理当类
+
+
         return null;
     }
 }

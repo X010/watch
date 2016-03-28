@@ -478,12 +478,16 @@ public class MainController {
             }
 
             //生成数据
-            ChartData chartData = this.metricRecordService.countMetricRecord(metricCondition);
+            ChartData chartData = null;
+            try {
+                chartData = this.metricRecordService.countMetricRecord(metricCondition);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             if (chartData != null) {
                 res = JsonParser.simpleJson(chartData);
             }
-
         }
         model.addObject("res", res);
         model.setViewName("metric_s_q");

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -44,9 +46,35 @@ public interface MetricRecordDao {
 
     /**
      * 统计指标MetricRecord个数
+     *
      * @param mid
      * @return
      */
     @Select("select count(1) from watch_metricrecord where mid=#{mid}")
-    public int countMetricRecord(@Param("mid")long mid);
+    public int countMetricRecord(@Param("mid") long mid);
+
+
+    /**
+     * 统计记录条数
+     *
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @param mid       指标ID
+     * @param nid       命名空间ID
+     * @param like      查询条件
+     * @return
+     */
+    @Select("select count(1) from watch_metricrecord where starttime>=#{startTime} and starttime<=#{endTime} and mid=#{mid} and nid=#{nid} and mgroup like #{like}")
+    public int countMetricRecordLike(@Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("mid") long mid, @Param("nid") long nid, @Param("like") String like);
+
+    /**
+     * 统计记录条数
+     * @param startTime
+     * @param endTime
+     * @param mid
+     * @param nid
+     * @return
+     */
+    @Select("select count(1) from watch_metricrecord where starttime>=#{startTime} and starttime<=#{endTime} and mid=#{mid} and nid=#{nid}")
+    public int countMetricRecord(@Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("mid") long mid, @Param("nid") long nid);
 }
